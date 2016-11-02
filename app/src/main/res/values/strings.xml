@@ -1,0 +1,309 @@
+<resources>
+    <string name="app_name">AliceNote</string>
+
+    <string-array name="hour_open">
+        <item>Pick hour</item>
+        <item>00:00</item>
+        <item>00:15</item>
+        <item>00:30</item>
+        <item>00:45</item>
+        <item>01:00</item>
+        <item>01:15</item>
+        <item>01:30</item>
+        <item>01:45</item>
+        <item>02:00</item>
+        <item>02:15</item>
+        <item>02:30</item>
+        <item>02:45</item>
+        <item>03:00</item>
+        <item>03:15</item>
+        <item>03:30</item>
+        <item>03:45</item>
+        <item>04:00</item>
+        <item>04:15</item>
+        <item>04:30</item>
+        <item>04:45</item>
+        <item>05:00</item>
+        <item>05:15</item>
+        <item>05:30</item>
+        <item>05:45</item>
+        <item>06:00</item>
+        <item>06:15</item>
+        <item>06:30</item>
+        <item>06:45</item>
+        <item>07:00</item>
+        <item>07:15</item>
+        <item>07:30</item>
+        <item>07:45</item>
+        <item>08:00</item>
+        <item>08:15</item>
+        <item>08:30</item>
+        <item>08:45</item>
+        <item>09:00</item>
+        <item>09:15</item>
+        <item>09:30</item>
+        <item>09:45</item>
+        <item>10:00</item>
+        <item>10:15</item>
+        <item>10:30</item>
+        <item>10:45</item>
+        <item>11:00</item>
+        <item>11:15</item>
+        <item>11:30</item>
+        <item>11:45</item>
+        <item>12:00</item>
+        <item>12:15</item>
+        <item>12:30</item>
+        <item>12:45</item>
+        <item>13:00</item>
+        <item>13:15</item>
+        <item>13:30</item>
+        <item>13:45</item>
+        <item>14:00</item>
+        <item>14:15</item>
+        <item>14:30</item>
+        <item>14:45</item>
+        <item>15:00</item>
+        <item>15:15</item>
+        <item>15:30</item>
+        <item>15:45</item>
+        <item>16:00</item>
+        <item>16:15</item>
+        <item>16:30</item>
+        <item>16:45</item>
+        <item>17:00</item>
+        <item>17:15</item>
+        <item>17:30</item>
+        <item>17:45</item>
+        <item>18:00</item>
+        <item>18:15</item>
+        <item>18:30</item>
+        <item>18:45</item>
+        <item>19:00</item>
+        <item>19:15</item>
+        <item>19:30</item>
+        <item>19:45</item>
+        <item>20:00</item>
+        <item>20:15</item>
+        <item>20:30</item>
+        <item>20:45</item>
+        <item>21:00</item>
+        <item>21:15</item>
+        <item>21:30</item>
+        <item>21:45</item>
+        <item>22:00</item>
+        <item>22:15</item>
+        <item>22:30</item>
+        <item>22:45</item>
+        <item>23:00</item>
+        <item>23:15</item>
+        <item>23:30</item>
+        <item>23:45</item>
+    </string-array>
+
+    <string-array name="us_states">
+        <item>Select State</item>
+        <item>Alabama,AL</item>
+        <item>Alaska,AK</item>
+        <item>American Samoa,AS</item>
+        <item>Arizona,AZ</item>
+        <item>Arkansas,AR</item>
+        <item>California,CA</item>
+        <item>Colorado,CO</item>
+        <item>Connecticut,CT</item>
+        <item>Delaware,DE</item>
+        <item>District of Columbia,DC</item>
+        <item>Florida,FL</item>
+        <item>Georgia,GA</item>
+        <item>Guam,GU</item>
+        <item>Hawaii,HI</item>
+        <item>Idaho,ID</item>
+        <item>Illinois,IL</item>
+        <item>Indiana,IN</item>
+        <item>Iowa,IA</item>
+        <item>Kansas,KS</item>
+        <item>Kentucky,KY</item>
+        <item>Louisiana,LA</item>
+        <item>Maine,ME</item>
+        <item>Maryland,MD</item>
+        <item>Massachusetts,MH</item>
+        <item>Michigan,MI</item>
+        <item>Micronesia,FM</item>
+        <item>Minnesota,MN</item>
+        <item>Mississippi,MS</item>
+        <item>Missouri,MO</item>
+        <item>Montana,MT</item>
+        <item>Nebraska,NE</item>
+        <item>Nevada,NV</item>
+        <item>New Hampshire,NH</item>
+        <item>New Jersey,NJ</item>
+        <item>New Mexico,NM</item>
+        <item>New York,NY</item>
+        <item>North Carolina,NC</item>
+        <item>North Dakota,ND</item>
+        <item>Northern Marianas Islands,MP</item>
+        <item>Ohio,OH</item>
+        <item>Oklahoma,OK</item>
+        <item>Oregon,OR</item>
+        <item>Palau,PW</item>
+        <item>Pennsylvania,PA</item>
+        <item>Puerto Rico,PR</item>
+        <item>Rhode Island,RI</item>
+        <item>South Carolina,SC</item>
+        <item>South Dakota,SD</item>
+        <item>Tennessee,TN</item>
+        <item>Texas,TX</item>
+        <item>Utah,UT</item>
+        <item>Vermont,VT</item>
+        <item>Virginia,VA</item>
+        <item>Virgin Islands,VI</item>
+        <item>Washington,WA</item>
+        <item>West Virginia,WV</item>
+        <item>Wisconsin,WI</item>
+        <item>Wyoming,WY</item>
+    </string-array>
+
+    <string-array name="bussiness_type">
+        <item>Select Bussiness Type</item>
+        <item>Nail Salon</item>
+        <item>Hair Salon</item>
+        <item>Beauty Salon</item>
+    </string-array>
+
+    <string-array name="list_service">
+        <item>Specialty Manicures</item>
+        <item>Manicures</item>
+        <item>Polish Changes</item>
+        <item>Pedicures</item>
+        <item>Brush-on gel-polish/ hybrid gels</item>
+        <item>Pink-and-white Acrylics</item>
+        <item>Acrylics</item>
+        <item>Specialty Pedicures</item>
+        <item>Nail Art</item>
+        <item>Acrylics (sculpt)</item>
+        <item>Colored Acrylics</item>
+
+    </string-array>
+
+    <string-array name="nail_list_services">
+
+        <item>Specialty Manicures</item>
+        <item>Manicures</item>
+        <item>Polish Changes</item>
+        <item>Pedicures</item>
+        <item>Brush-on gel-polish/ hybrid gels</item>
+        <item>Pink-and-white Acrylics</item>
+        <item>Acrylics</item>
+        <item>Specialty Pedicures</item>
+        <item>Nail Art</item>
+        <item>Acrylics (sculpt)</item>
+        <item>Colored Acrylics</item>
+    </string-array>
+
+    <string-array name="hair_list_services">
+
+    </string-array>
+
+    <string-array name="duration_time_service">
+
+        <item>15m</item>
+        <item>30m</item>
+        <item>45m</item>
+        <item>1h</item>
+        <item>1h15m</item>
+        <item>1h30m</item>
+        <item>1h45m</item>
+        <item>2h</item>
+        <item>2h15m</item>
+        <item>2h30m</item>
+        <item>2h45m</item>
+        <item>3h</item>
+        <item>3h15m</item>
+        <item>3h30m</item>
+        <item>3h45m</item>
+        <item>4h</item>
+        <item>4h15m</item>
+        <item>4h30m</item>
+        <item>4h45m</item>
+        <item>5h</item>
+        <item>5h15m</item>
+        <item>5h30m</item>
+        <item>5h45m</item>
+        <item>6h</item>
+        <item>6h15m</item>
+        <item>6h30m</item>
+        <item>6h45m</item>
+        <item>7h</item>
+        <item>7h15m</item>
+        <item>7h30m</item>
+        <item>7h45m</item>
+        <item>8h</item>
+        <item>8h15m</item>
+        <item>8h30m</item>
+        <item>8h45m</item>
+        <item>9h</item>
+        <item>9h15m</item>
+        <item>9h30m</item>
+        <item>9h45m</item>
+        <item>10h</item>
+        <item>10h15m</item>
+        <item>10h30m</item>
+        <item>10h45m</item>
+        <item>11h</item>
+        <item>11h15m</item>
+        <item>11h30m</item>
+        <item>11h45m</item>
+        <item>12h</item>
+        <item>12h15p</item>
+        <item>12h30p</item>
+        <item>12h45p</item>
+        <item>13h</item>
+        <item>13h15m</item>
+        <item>13h30m</item>
+        <item>13h45m</item>
+        <item>14h</item>
+        <item>14h15m</item>
+        <item>14h30m</item>
+        <item>14h45m</item>
+        <item>15h</item>
+        <item>15h15m</item>
+        <item>15h30m</item>
+        <item>15h45m</item>
+        <item>16h</item>
+        <item>16h15m</item>
+        <item>16h30m</item>
+        <item>16h45m</item>
+        <item>17h</item>
+        <item>17h15m</item>
+        <item>17h30m</item>
+        <item>17h45m</item>
+        <item>18h</item>
+        <item>18h15m</item>
+        <item>18h30m</item>
+        <item>18h45m</item>
+        <item>19h</item>
+        <item>19h15m</item>
+        <item>19h30m</item>
+        <item>19h45m</item>
+        <item>20h</item>
+        <item>20h15m</item>
+        <item>20h30m</item>
+        <item>20h45m</item>
+        <item>21h</item>
+        <item>21h15m</item>
+        <item>21h30m</item>
+        <item>21h45m</item>
+        <item>22h</item>
+        <item>22h15m</item>
+        <item>22h30m</item>
+        <item>22h45m</item>
+        <item>23h</item>
+        <item>23h15m</item>
+        <item>23h30m</item>
+        <item>23h45m</item>
+        <item>24h</item>
+
+
+    </string-array>
+
+</resources>

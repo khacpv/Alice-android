@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_frgment_hair_service"
+    android:background="#C0C0C0"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_pick_hair_service"
+        layout="@layout/layout_title_firstsetup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_hair_services"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTex_add_hair_service"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.80"
+            android:hint="Add hair serivce"
+            android:textColor="#000"
+            android:textColorHint="#D9D9D9" />
+
+        <Button
+            android:id="@+id/button_add_hair_service"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="ADD" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#00366D" />
+
+    <include
+        android:id="@+id/button_next_back"
+        layout="@layout/layout_backnext_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp" />
+
+</LinearLayout>
