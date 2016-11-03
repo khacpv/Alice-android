@@ -42,6 +42,11 @@ public class Constants {
     public static final String NAIL_SERVICE = "NailService.Fragment";
     public static final String HAIR_SERVICE = "HairService.Fragment";
 
-
     /* End of First Setup Activity */
+
+    /*START API SERVER*/
+
+    public static final String URL_SERVER = "";
+
+    /*END API SERVER*/
 }
