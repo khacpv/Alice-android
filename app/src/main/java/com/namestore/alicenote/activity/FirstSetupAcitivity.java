@@ -51,6 +51,7 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
         if (getIntent().getExtras().getInt(Constants.FIRST_SETUP_SCREEN) == Constants.KEY_SETUP_INFO_SALON) {
             showSetupInfoSalon();
         }
+
     }
 
 
