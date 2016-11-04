@@ -34,7 +34,7 @@
             android:foregroundGravity="left"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:maxLength="16"
+            android:maxLength="26"
             android:maxLines="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

@@ -18,6 +18,7 @@ import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.models.User;
 
 /**
  * Created by kienht on 10/24/16.
@@ -36,10 +37,9 @@ public class LoginFragment extends CoreFragment {
     TextView mTextViewContact;
     SwitchCompat switchCompatLogin;
     private StartActivity startActivity;
-    String mEmail;
-    String mPassword;
     OnFragmentInteractionListener listener;
     LinearLayout linearLayout;
+    User mUser = new User();
 
     @Nullable
     @Override
@@ -94,10 +94,6 @@ public class LoginFragment extends CoreFragment {
 
     }
 
-    public void login(String mEmail, String mPassword) {
-
-    }
-
 
     @Override
     protected void initViews(View view) {
@@ -134,7 +130,10 @@ public class LoginFragment extends CoreFragment {
         switch (view.getId()) {
 
             case R.id.button_login:
-                listener.onViewClick(Constants.LOGIN_BUTTON);
+                mUser.email = mEditTexEmail.getText().toString();
+                mUser.password_hash = mEditTexPassword.getText().toString();
+
+                listener.onViewClick(Constants.LOGIN_BUTTON, mUser);
                 break;
 
             case R.id.textview_forgot_pass:

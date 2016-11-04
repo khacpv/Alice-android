@@ -18,6 +18,7 @@ import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.models.User;
 
 /**
  * Created by kienht on 10/24/16.
@@ -35,9 +36,7 @@ public class SignUpFragment extends CoreFragment {
     Button mButtonGoogle;
     LinearLayout linearLayout;
     private StartActivity loginActivity;
-
-    String mEmail;
-    String mPassword;
+    User mUser = new User();
 
     OnFragmentInteractionListener listener;
 
@@ -58,10 +57,6 @@ public class SignUpFragment extends CoreFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    }
-
-    public void signUp(String mEmail, String mPassword) {
-
     }
 
 
@@ -134,7 +129,15 @@ public class SignUpFragment extends CoreFragment {
                 listener.onViewClick(Constants.LOGIN_FRAGMENT);
                 break;
             case R.id.button_signup:
-                listener.onViewClick(Constants.SIGNUP_BUTTON);
+
+                mUser.email = mEditTextEmail.getText().toString();
+                mUser.password_hash = mEditTextPassword.getText().toString();
+                mUser.first_name = "";
+                mUser.last_name = "";
+                mUser.gender = 1;
+                mUser.telephone = 1;
+
+                listener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
                 break;
             case R.id.textview_report_error_signup:
                 showShortToast(Constants.REPORT_ERROR);
