@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
@@ -27,9 +27,11 @@ import com.namestore.alicenote.models.User;
 public class SignUpFragment extends CoreFragment {
     EditText mEditTextEmail;
     EditText mEditTextPassword;
-    EditText mEditTextReTypePassword;
+    EditText mEditTextPhone;
+    EditText mEditTextFirstName;
+    EditText mEditTextLastName;
+    Spinner mSpinnerGender;
     Button mButtonSignup;
-    SwitchCompat switchCompatSignup;
     TextView mTextViewAlreadyAccount;
     TextView mTextViewReport;
     Button mButtonFb;
@@ -97,10 +99,12 @@ public class SignUpFragment extends CoreFragment {
     protected void initViews(View view) {
         mTextViewAlreadyAccount = (TextView) view.findViewById(R.id.textview_already_account);
         mButtonSignup = (Button) view.findViewById(R.id.button_signup);
-        mEditTextEmail = (EditText) view.findViewById(R.id.editText_signup_email);
-        mEditTextPassword = (EditText) view.findViewById(R.id.editText_signup_password);
-        mEditTextReTypePassword = (EditText) view.findViewById(R.id.editText_signup_retype_password);
-        switchCompatSignup = (SwitchCompat) view.findViewById(R.id.switch_compat_signup);
+        mEditTextEmail = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_email);
+        mEditTextPassword = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_password);
+        mEditTextPhone = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_phone);
+        mEditTextFirstName = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_first_name);
+        mEditTextLastName = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_last_name);
+        mSpinnerGender = (Spinner) view.findViewById(R.id.signup_form).findViewById(R.id.spinner_signup_gender);
         mTextViewReport = (TextView) view.findViewById(R.id.textview_report_error_signup);
         mButtonFb = (Button) view.findViewById(R.id.button_facebook_signup);
         mButtonGoogle = (Button) view.findViewById(R.id.button_google_signup);
@@ -119,7 +123,12 @@ public class SignUpFragment extends CoreFragment {
 
         configEditTex(mEditTextEmail, linearLayout, "Email", R.drawable.icon_email);
         configEditTex(mEditTextPassword, linearLayout, "Password", R.drawable.icon_password);
-        configEditTex(mEditTextReTypePassword, linearLayout, "Re-type Password", R.drawable.icon_password);
+        configEditTex(mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email);
+        configEditTex(mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email);
+        configEditTex(mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email);
+
+        String[] gender = getResources().getStringArray(R.array.gender);
+        configSpinner(gender, mSpinnerGender);
     }
 
     @Override
@@ -130,12 +139,24 @@ public class SignUpFragment extends CoreFragment {
                 break;
             case R.id.button_signup:
 
+                mUser.first_name = mEditTextFirstName.getText().toString();
+                mUser.last_name = mEditTextLastName.getText().toString();
                 mUser.email = mEditTextEmail.getText().toString();
                 mUser.password_hash = mEditTextPassword.getText().toString();
-                mUser.first_name = "";
-                mUser.last_name = "";
-                mUser.gender = 1;
-                mUser.telephone = 1;
+                mUser.telephone = Integer.valueOf(mEditTextPhone.getText().toString());
+
+                if(mSpinnerGender.getSelectedItem().toString().equals("Male")){
+                    mUser.gender = 0;
+                }
+                else if(mSpinnerGender.getSelectedItem().toString().equals("Female")){
+                    mUser.gender = 1;
+                }
+                else{
+                    mUser.gender = 2;
+                }
+
+                logE(mUser.first_name +"||"+ mUser.last_name +"||"+
+                        mUser.email +"||"+ mUser.password_hash +"||"+ mUser.telephone +"||"+ mUser.gender);
 
                 listener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
                 break;

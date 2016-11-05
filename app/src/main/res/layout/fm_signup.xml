@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_frgment_signup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
     android:background="#CCCCCC"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,62 +20,25 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/editText_signup_email"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:duplicateParentState="true"
-        android:ellipsize="start"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:foregroundGravity="left"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:maxLength="16"
-        android:maxLines="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        android:textColorHint="#fff" />
+        android:layout_height="200dp">
 
-    <EditText
-        android:id="@+id/editText_signup_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:duplicateParentState="true"
-        android:ellipsize="start"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:foregroundGravity="left"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:maxLength="24"
-        android:maxLines="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        android:textColorHint="#fff" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-    <EditText
-        android:id="@+id/editText_signup_retype_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:duplicateParentState="true"
-        android:ellipsize="start"
-        android:ems="10"
-        android:focusableInTouchMode="false"
-        android:foregroundGravity="left"
-        android:hint="Re-type Password"
-        android:inputType="textPassword"
-        android:maxLength="24"
-        android:maxLines="1"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:singleLine="true"
-        android:textColorHint="#fff" />
+            <include
+                android:id="@+id/signup_form"
+                layout="@layout/layout_form_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_signup"
@@ -86,21 +48,6 @@
         android:background="#999999"
         android:text="SIGN UP" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/switch_compat_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:checked="false"
-            android:text="Remember me" />
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/textview_already_account"

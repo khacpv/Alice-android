@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AliceNote</string>
 
+    <string name="facebook_app_id">513017002219486</string>
+
     <string-array name="hour_open">
         <item>Pick hour</item>
         <item>00:00</item>
@@ -303,6 +305,15 @@
         <item>23h45m</item>
         <item>24h</item>
 
+
+    </string-array>
+
+    <string-array name="gender">
+
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
 
     </string-array>
 
