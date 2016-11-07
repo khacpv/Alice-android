@@ -1,12 +1,13 @@
 package com.namestore.alicenote.connect.network.api;
 
-import com.namestore.alicenote.connect.reponse.RSPLogin;
-import com.namestore.alicenote.connect.reponse.RSPSignup;
+import com.namestore.alicenote.connect.reponse.RSPBase;
+import com.namestore.alicenote.connect.reponse.RSPLoginSignup;
 import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 
@@ -17,11 +18,13 @@ import retrofit2.http.POST;
 public interface AliceApi {
 
     @POST(Constants.API_LOGIN)
-    Call<RSPLogin> login(@Body User user);
-
+    Call<RSPLoginSignup> login(@Body User user);
 
     @POST(Constants.API_SIGNUP)
-    Call<RSPSignup> signup(@Body User user);
+    Call<RSPLoginSignup> signup(@Body User user);
+
+    @POST(Constants.API_LOGIN_FB)
+    Call<RSPLoginSignup> loginFb(@Body User user);
 
 }
 

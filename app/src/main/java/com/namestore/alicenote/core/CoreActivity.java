@@ -50,54 +50,13 @@ public abstract class CoreActivity extends AppCompatActivity implements View.OnC
         Toast.makeText(this.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    public void showKeyBoard(EditText mEditText) {
-        InputMethodManager keyBoard =
-                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyBoard.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
+    public void hideKeyBoard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
-    public void hideKeyBoard(RelativeLayout mRelativeLayout) {
-        InputMethodManager keyBoard =
-                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyBoard.hideSoftInputFromWindow(mRelativeLayout.getWindowToken(), 0);
-    }
-
-    public void configEditTex(final EditText editText, final RelativeLayout relativeLayout, final String hint, int icon) {
-        editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                editText.setHint("");
-                editText.requestFocusFromTouch();
-                editText.setFocusableInTouchMode(true);
-                showKeyBoard(editText);
-                return false;
-            }
-        });
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    editText.clearFocus();
-                    editText.setHint(hint);
-                    editText.setFocusableInTouchMode(false);
-                }
-            }
-        });
-
-        relativeLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                relativeLayout.setFocusable(true);
-                int childCount = relativeLayout.getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    View view = relativeLayout.getChildAt(i);
-                    view.clearFocus();
-                }
-                hideKeyBoard(relativeLayout);
-                return false;
-            }
-        });
-        editText.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
-    }
 
 }

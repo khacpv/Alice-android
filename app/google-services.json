@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "416148208535",
+    "project_id": "firebase-alicenote"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416148208535:android:ac8707284b32742f",
+        "android_client_info": {
+          "package_name": "com.namestore.alicenote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416148208535-ld2ktbnmo0bj4i4eb2l32pu5mnuq5lia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.namestore.alicenote",
+            "certificate_hash": "03BCE2C5CDA39F5BEACFC714EB80C870210F1E57"
+          }
+        },
+        {
+          "client_id": "416148208535-6b3f22muk5ghfp5aidmi34pm7ftrg2lv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkx9pFCPSEq8UNFXlC8CtZcPQk7IoVzKw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

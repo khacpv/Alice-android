@@ -1,9 +1,11 @@
 package com.namestore.alicenote.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,9 @@ import com.namestore.alicenote.models.User;
  */
 
 public class SignUpFragment extends CoreFragment {
+    public final static int GENDER_MALE = 1;
+    public final static int GENDER_FEMALE = 2;
+    public final static int GENDER_OTHER = 3;
     EditText mEditTextEmail;
     EditText mEditTextPassword;
     EditText mEditTextPhone;
@@ -39,7 +44,6 @@ public class SignUpFragment extends CoreFragment {
     LinearLayout linearLayout;
     private StartActivity loginActivity;
     User mUser = new User();
-
     OnFragmentInteractionListener listener;
 
     @Nullable
@@ -143,22 +147,24 @@ public class SignUpFragment extends CoreFragment {
                 mUser.last_name = mEditTextLastName.getText().toString();
                 mUser.email = mEditTextEmail.getText().toString();
                 mUser.password_hash = mEditTextPassword.getText().toString();
-                mUser.telephone = Integer.valueOf(mEditTextPhone.getText().toString());
+                mUser.telephone = getIntfromEdittex(mEditTextPhone);
 
-                if(mSpinnerGender.getSelectedItem().toString().equals("Male")){
-                    mUser.gender = 0;
-                }
-                else if(mSpinnerGender.getSelectedItem().toString().equals("Female")){
-                    mUser.gender = 1;
-                }
-                else{
-                    mUser.gender = 2;
+                if (mSpinnerGender.getSelectedItem().toString().equals("Male")) {
+                    mUser.gender = GENDER_MALE;
+                } else if (mSpinnerGender.getSelectedItem().toString().equals("Female")) {
+                    mUser.gender = GENDER_FEMALE;
+                } else {
+                    mUser.gender = GENDER_OTHER;
                 }
 
-                logE(mUser.first_name +"||"+ mUser.last_name +"||"+
-                        mUser.email +"||"+ mUser.password_hash +"||"+ mUser.telephone +"||"+ mUser.gender);
+                if (TextUtils.isEmpty(mUser.first_name) || TextUtils.isEmpty(mUser.last_name)
+                        || TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.password_hash)
+                        || mUser.telephone != 0 || mUser.gender != 0) {
+                    showShortToast("Please filling in the blanks");
+                } else {
+                    listener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
+                }
 
-                listener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
                 break;
             case R.id.textview_report_error_signup:
                 showShortToast(Constants.REPORT_ERROR);

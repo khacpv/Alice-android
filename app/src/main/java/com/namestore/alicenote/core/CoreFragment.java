@@ -2,6 +2,7 @@ package com.namestore.alicenote.core;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,7 +36,7 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
     }
 
     public void showShortToast(String msg) {
-        Toast.makeText( getActivity(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 
     public void showKeyBoard(EditText mEditText) {
@@ -49,7 +50,6 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
                 (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         keyBoard.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
     }
-
 
 
     public void configEditTex(final EditText editText, final LinearLayout linearLayout, final String hint, int icon) {
@@ -89,7 +89,8 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
         });
         editText.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
     }
-    public void configSpinner(String[] values, Spinner... spinners){
+
+    public void configSpinner(String[] values, Spinner... spinners) {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(),
                 android.R.layout.simple_spinner_item, values);
@@ -99,5 +100,14 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
             spinner.setSelection(0);
         }
 
+    }
+
+    public int getIntfromEdittex(EditText editText) {
+        String string = editText.getText().toString();
+        if (TextUtils.isEmpty(string)) {
+            string = "0";
+        }
+        int integer = Integer.parseInt(string);
+        return integer;
     }
 }

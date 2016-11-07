@@ -3,6 +3,9 @@ package com.namestore.alicenote.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -27,6 +30,7 @@ public class User {
     @Expose
     public String last_name;
 
+
     @SerializedName("gender")
     @Expose
     public int gender;
@@ -34,5 +38,34 @@ public class User {
     @SerializedName("telephone")
     @Expose
     public int telephone;
+
+    @SerializedName("id")
+    @Expose
+    public String id;
+
+    public int getGender() {
+        return gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword_hash() {
+        return password_hash;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public int getTelephone() {
+        return telephone;
+    }
+
 
 }

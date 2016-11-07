@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class LoginFragment extends CoreFragment {
     EditText mEditTexPassword;
     TextView mTextViewForgotPass;
     TextView mTextViewReportError;
+    TextView mTextViewIncorrect;
     Button mButtonFb;
     Button mButtonGoogleP;
     TextView mTextViewContact;
@@ -94,7 +96,6 @@ public class LoginFragment extends CoreFragment {
 
     }
 
-
     @Override
     protected void initViews(View view) {
         mTextViewSignup = (TextView) view.findViewById(R.id.textview_signup);
@@ -108,6 +109,8 @@ public class LoginFragment extends CoreFragment {
         mTextViewContact = (TextView) view.findViewById(R.id.textview_contact);
         switchCompatLogin = (SwitchCompat) view.findViewById(R.id.switch_compat_login);
         linearLayout = (LinearLayout) view.findViewById(R.id.frgment_login);
+        mTextViewIncorrect = (TextView) view.findViewById(R.id.textview_incorrect_login);
+        mTextViewIncorrect.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -122,6 +125,33 @@ public class LoginFragment extends CoreFragment {
         mTextViewContact.setOnClickListener(this);
         configEditTex(mEditTexEmail, linearLayout, "Email", R.drawable.icon_email);
         configEditTex(mEditTexPassword, linearLayout, "Password", R.drawable.icon_password);
+        invisibleTextViewIncorrect(mEditTexEmail, mEditTexPassword);
+    }
+
+
+    public void setHintEdittex(String email, String password) {
+        mEditTexEmail.setHint(email);
+        mEditTexPassword.setHint(password);
+    }
+
+
+    /**
+     * setmTextViewIncorrect invisible when click edittex
+     */
+    public void invisibleTextViewIncorrect(EditText... editTexts) {
+        for (EditText editText : editTexts) {
+            editText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mTextViewIncorrect.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
+    }
+
+    public void setTextViewIncorrect(String text) {
+        mTextViewIncorrect.setVisibility(View.VISIBLE);
+        mTextViewIncorrect.setText(text);
     }
 
     @Override
@@ -132,8 +162,11 @@ public class LoginFragment extends CoreFragment {
             case R.id.button_login:
                 mUser.email = mEditTexEmail.getText().toString();
                 mUser.password_hash = mEditTexPassword.getText().toString();
-
-                listener.onViewClick(Constants.LOGIN_BUTTON, mUser);
+                if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.password_hash)) {
+                    showShortToast("Please filling in the blanks");
+                } else {
+                    listener.onViewClick(Constants.LOGIN_BUTTON, mUser);
+                }
                 break;
 
             case R.id.textview_forgot_pass:
