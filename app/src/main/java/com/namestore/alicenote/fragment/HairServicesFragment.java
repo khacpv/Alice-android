@@ -77,7 +77,7 @@ public class HairServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        configEditTex(mEditTexAddHairService, linearLayout, "Add hair service", 0);
+        configEditTex(mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
 
         hairServicesArrayList = new ArrayList<>();
 

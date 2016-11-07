@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.namestore.alicenote.data.Constants;
@@ -52,15 +53,17 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
     }
 
 
-    public void configEditTex(final EditText editText, final LinearLayout linearLayout, final String hint, int icon) {
-        editText.setOnTouchListener(new View.OnTouchListener() {
+    public void configEditTex(final EditText editText, final LinearLayout linearLayout, final String hint, int icon, final TextView textView) {
+        editText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 editText.setHint("");
                 editText.requestFocusFromTouch();
                 editText.setFocusableInTouchMode(true);
+                if (textView != null) {
+                    textView.setVisibility(View.INVISIBLE);
+                }
                 showKeyBoard(editText);
-                return false;
             }
         });
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -74,9 +77,9 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
             }
         });
 
-        linearLayout.setOnTouchListener(new View.OnTouchListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
                 linearLayout.setFocusable(true);
                 int childCount = linearLayout.getChildCount();
                 for (int i = 0; i < childCount; i++) {
@@ -84,7 +87,6 @@ public abstract class CoreFragment extends Fragment implements View.OnClickListe
                     view.clearFocus();
                 }
                 hideKeyBoard(linearLayout);
-                return false;
             }
         });
         editText.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);

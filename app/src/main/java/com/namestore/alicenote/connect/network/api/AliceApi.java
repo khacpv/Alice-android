@@ -23,8 +23,8 @@ public interface AliceApi {
     @POST(Constants.API_SIGNUP)
     Call<RSPLoginSignup> signup(@Body User user);
 
-    @POST(Constants.API_LOGIN_FB)
-    Call<RSPLoginSignup> loginFb(@Body User user);
+    @POST(Constants.API_SOCIAL_LOGIN)
+    Call<RSPLoginSignup> socialLogin(@Body User user);
 
 }
 

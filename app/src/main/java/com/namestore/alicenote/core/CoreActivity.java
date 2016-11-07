@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -35,13 +36,6 @@ public abstract class CoreActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void backPressed(Fragment fragment, int id) {
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(id, fragment)
-                .commit();
-    }
-
     public void logE(String mess) {
         Log.e(Constants.TAG, mess);
     }
@@ -53,10 +47,8 @@ public abstract class CoreActivity extends AppCompatActivity implements View.OnC
     public void hideKeyBoard() {
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            InputMethodManager keyBoard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            keyBoard.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-
-
 }

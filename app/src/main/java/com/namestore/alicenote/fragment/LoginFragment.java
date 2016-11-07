@@ -123,30 +123,14 @@ public class LoginFragment extends CoreFragment {
         mButtonFb.setOnClickListener(this);
         mButtonGoogleP.setOnClickListener(this);
         mTextViewContact.setOnClickListener(this);
-        configEditTex(mEditTexEmail, linearLayout, "Email", R.drawable.icon_email);
-        configEditTex(mEditTexPassword, linearLayout, "Password", R.drawable.icon_password);
-        invisibleTextViewIncorrect(mEditTexEmail, mEditTexPassword);
+        configEditTex(mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
+        configEditTex(mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
     }
 
 
     public void setHintEdittex(String email, String password) {
         mEditTexEmail.setHint(email);
         mEditTexPassword.setHint(password);
-    }
-
-
-    /**
-     * setmTextViewIncorrect invisible when click edittex
-     */
-    public void invisibleTextViewIncorrect(EditText... editTexts) {
-        for (EditText editText : editTexts) {
-            editText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mTextViewIncorrect.setVisibility(View.INVISIBLE);
-                }
-            });
-        }
     }
 
     public void setTextViewIncorrect(String text) {

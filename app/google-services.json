@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "416148208535",
-    "project_id": "firebase-alicenote"
+    "firebase_url": "https://fir-alicenote.firebaseio.com",
+    "project_id": "firebase-alicenote",
+    "storage_bucket": "firebase-alicenote.appspot.com"
   },
   "client": [
     {
@@ -21,6 +23,10 @@
           }
         },
         {
+          "client_id": "416148208535-0br0f4343egbg9q0omn0cmm7606bk21k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
           "client_id": "416148208535-6b3f22muk5ghfp5aidmi34pm7ftrg2lv.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,11 +41,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416148208535-0br0f4343egbg9q0omn0cmm7606bk21k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

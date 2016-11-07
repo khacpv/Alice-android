@@ -1,6 +1,7 @@
 package com.namestore.alicenote.activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.connect.ServiceGenerator;
 import com.namestore.alicenote.connect.network.api.AliceApi;
@@ -64,7 +67,6 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
     AliceApi aliceApi;
     User mUser = new User();
     private LoginButton mLoginButtonFb;
-    private SignInButton mSignInButoonGoogle;
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
 
@@ -99,15 +101,19 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         aliceApi = ServiceGenerator.creatService(AliceApi.class);
 
         mLoginButtonFb = (LoginButton) findViewById(R.id.button_facebook_login);
+
         loginFb();
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         prgDialog = new ProgressDialog(this);
-
-        loginGooglePlus();
-
-        mSignInButoonGoogle = (SignInButton) findViewById(R.id.button_google_login);
-        mSignInButoonGoogle.setVisibility(View.GONE);
-
     }
 
     /**
@@ -184,7 +190,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                     mUser.telephone = 0;
                     setPrgDialog("Loging");
 
-                    aliceApi.loginFb(mUser).enqueue(new Callback<RSPLoginSignup>() {
+                    aliceApi.socialLogin(mUser).enqueue(new Callback<RSPLoginSignup>() {
                         @Override
                         public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
                             prgDialog.hide();
@@ -208,22 +214,6 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
     }
 
     public void loginGooglePlus() {
-        // [START configure_signin]
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        // [END configure_signin]
-
-        // [START build_client]
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        // [END build_client]
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -268,7 +258,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 mLoginButtonFb.performClick();
                 break;
             case Constants.LOGIN_GOOGLE:
-                mSignInButoonGoogle.performClick();
+                loginGooglePlus();
                 break;
 
         }
@@ -288,14 +278,24 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 // Signed in successfully, show authenticated UI.
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                String personName = acct.getDisplayName();
-                String personGivenName = acct.getGivenName();
-                String personFamilyName = acct.getFamilyName();
-                String personEmail = acct.getEmail();
-                String personId = acct.getId();
+                mUser.first_name= acct.getGivenName();
+                mUser.last_name = acct.getFamilyName();
+                mUser.email = acct.getEmail();
+                mUser.id =  acct.getId();
+                mUser.gender = 0;
                 //Uri personPhoto = acct.getPhotoUrl();
 
-                logE(personEmail + "||" + personFamilyName + "||" + personGivenName + "||" + personName + "||" + personId);
+                aliceApi.socialLogin(mUser).enqueue(new Callback<RSPLoginSignup>() {
+                    @Override
+                    public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                        logE(response.body().getStatus() + "||" + response.body().getToken());
+                    }
+
+                    @Override
+                    public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
+
+                    }
+                });
 
             } else {
                 // Signed out, show unauthenticated UI.
@@ -381,9 +381,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 });
 
                 break;
-
         }
-
     }
 
     @Override

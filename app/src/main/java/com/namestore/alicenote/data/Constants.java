@@ -48,7 +48,7 @@ public class Constants {
 
     public static final String URL_SERVER = "http://api.alicenote.com";
     public static final String API_LOGIN = "/v1/users/login";
-    public static final String API_LOGIN_FB = "/v1/users/fb-login";
+    public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
     public static final String API_SIGNUP = "/v1/users/register";
 
     /*END API SERVER*/

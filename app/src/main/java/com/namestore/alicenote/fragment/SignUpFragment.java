@@ -125,11 +125,11 @@ public class SignUpFragment extends CoreFragment {
         mTextViewAlreadyAccount.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        configEditTex(mEditTextEmail, linearLayout, "Email", R.drawable.icon_email);
-        configEditTex(mEditTextPassword, linearLayout, "Password", R.drawable.icon_password);
-        configEditTex(mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email);
-        configEditTex(mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email);
-        configEditTex(mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email);
+        configEditTex(mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
+        configEditTex(mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
+        configEditTex(mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
+        configEditTex(mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
+        configEditTex(mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
 
         String[] gender = getResources().getStringArray(R.array.gender);
         configSpinner(gender, mSpinnerGender);

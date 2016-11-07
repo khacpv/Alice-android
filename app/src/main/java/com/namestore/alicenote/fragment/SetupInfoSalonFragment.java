@@ -84,10 +84,10 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
         mButtonBack.setVisibility(View.INVISIBLE);
         mButtonNext.setOnClickListener(this);
         mTextViewTitle.setText("Welcome to AliceNote");
-        configEditTex(mEditTexBsnName, linearLayout, "Bussiness Name", 0);
-        configEditTex(mEditTexBsnCity, linearLayout, "City", 0);
-        configEditTex(mEditTexBsnPostCode, linearLayout, "Post Code", 0);
-        configEditTex(mEditTexBsnAddress, linearLayout, "Address", 0);
+        configEditTex(mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
+        configEditTex(mEditTexBsnCity, linearLayout, "City", 0, null);
+        configEditTex(mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
+        configEditTex(mEditTexBsnAddress, linearLayout, "Address", 0, null);
 
         configSpinner();
     }

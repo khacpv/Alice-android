@@ -124,7 +124,7 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        configEditTex(mEditTexAddNailService, linearLayout, "Add nail service", 0);
+        configEditTex(mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
         nailServicesArrayList = new ArrayList<>();
 
