@@ -1,89 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_frgment_signup"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCCCCC"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:clipToPadding="false"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:focusableInTouchMode="true"
-        android:text="ALICENOTE"
-        android:textColor="#fff"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/layout_frgment_signup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <ScrollView
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:focusableInTouchMode="true"
+            android:text="ALICENOTE"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
+        <include
+            android:id="@+id/signup_form"
+            layout="@layout/layout_form_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/button_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-
-            <include
-                android:id="@+id/signup_form"
-                layout="@layout/layout_form_signup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/button_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="#999999"
-        android:text="SIGN UP" />
+            android:layout_marginTop="20dp"
+            android:background="#999999"
+            android:text="SIGN UP" />
 
 
-    <TextView
-        android:id="@+id/textview_already_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Already have a account? Login"
-        android:textColor="#fff"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/textview_already_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Already have a account? Login"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textview_report_error_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="thông báo lỗi (nếu có)"
-        android:textColor="#ff6699"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textview_report_error_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="thông báo lỗi (nếu có)"
+            android:textColor="#ff6699"
+            android:textSize="14sp" />
 
-    <Button
-        android:id="@+id/button_facebook_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="#999999"
-        android:text="LOG IN WITH FACEBOOK" />
+        <Button
+            android:id="@+id/button_facebook_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#999999"
+            android:text="LOG IN WITH FACEBOOK" />
 
-    <Button
-        android:id="@+id/button_google_signup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#999999"
-        android:text="LOG IN WITH GOOGLE" />
+        <Button
+            android:id="@+id/button_google_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="#999999"
+            android:text="LOG IN WITH GOOGLE" />
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
