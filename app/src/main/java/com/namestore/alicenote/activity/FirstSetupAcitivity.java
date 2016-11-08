@@ -55,32 +55,32 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
 
 
     public void showSetupInfoSalon() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mSetupInfoSalonFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mSetupInfoSalonFragment).commit();
 
     }
 
     public void showTimeOpenDoorSalon() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mTimeOpenDoorFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mTimeOpenDoorFragment).commit();
 
     }
 
     public void pickSalonService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mPickSalonServiceFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mPickSalonServiceFragment).commit();
 
     }
 
     public void nailService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mNailServicesFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mNailServicesFragment).commit();
 
     }
 
     public void hairService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mHairServicesFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mHairServicesFragment).commit();
 
     }
 
     public void configServices() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mConfigSalonServicesFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mConfigSalonServicesFragment).commit();
 
     }
 

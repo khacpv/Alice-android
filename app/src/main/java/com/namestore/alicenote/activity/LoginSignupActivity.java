@@ -49,14 +49,14 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
      * khi nào muốn hiện Login screen thì gọi hàm này. Có thể gọi từ SignUpFragment
      */
     private void showLoginView() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mLoginFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mLoginFragment).commit();
     }
 
     /**
      * khi nào muốn hiện SignUp screen thì gọi hàm này. Có thể gọi từ LoginFragment
      */
     private void showSignupView() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mSignUpFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mSignUpFragment).commit();
 
     }
 

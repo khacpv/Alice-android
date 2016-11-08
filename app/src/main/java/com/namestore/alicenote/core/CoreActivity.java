@@ -1,9 +1,10 @@
 package com.namestore.alicenote.core;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -36,7 +37,7 @@ public abstract class CoreActivity extends AppCompatActivity implements View.OnC
     }
 
     public void backPressed(Fragment fragment, int id) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(id, fragment)
                 .commit();

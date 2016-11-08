@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.namestore.alicenote.MainActivity"
+    tools:showIn="@layout/main_app_bar">
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_weight="5"
+            android:textSize="25dp"
+            android:gravity="center|left"
+            android:layout_marginLeft="15dp"
+            android:text="Sale In" />
+
+        <TextView
+            android:id="@+id/tvSaleIn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="This month  >>" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayout10"
+        android:background="#e5e5e5e5"
+        ></LinearLayout>>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout11"
+        android:fillViewport="true">
+
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:layout_weight="5"
+                        android:text="Total Appointment" />
+
+                    <TextView
+                        android:layout_column="2"
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:text="Revenue" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="vertical"
+
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/tvAppointment"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="1"
+                        android:layout_weight="5"
+                        android:gravity="bottom"
+                        android:text="500"
+                        android:textSize="30dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvRevenue"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_weight="4"
+                        android:gravity="bottom|center"
+                        android:text="4000"
+                        android:textSize="30dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="bottom|center"
+                        android:text="$"
+                        android:textSize="30dp" />
+
+
+                </TableRow>
+
+
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tableLayout"
+                android:background="#E5E5E5"
+                android:orientation="horizontal"></LinearLayout>
+
+
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout1"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:layout_weight="5"
+                        android:text="Completed" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="vertical"
+
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/tvCompleted"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="450"
+                        android:textSize="30dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvRevnueCompleted"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="right|center"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:text="4500"
+                        android:textSize="30dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="3"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top|center"
+                        android:text="$"
+                        android:textSize="30dp" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:text="Pending" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="vertical"
+
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/tvPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="50"
+                        android:textSize="30dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvRevnuePending"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="right|center"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:text="500"
+                        android:textSize="30dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top|center"
+                        android:text="$"
+                        android:textSize="30dp" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:layout_weight="5"
+                        android:text="Cancellation" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="vertical"
+
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/tvCancellation"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="10"
+                        android:textSize="30dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvRevnueCancellation"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="right|center"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:text="100"
+                        android:textSize="30dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top|center"
+                        android:text="$"
+                        android:textSize="30dp" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_column="1"
+                        android:layout_weight="5"
+                        android:text="No Show" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="vertical"
+
+                    android:weightSum="10">
+
+
+                    <TextView
+                        android:id="@+id/tvNoShow"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="1"
+                        android:layout_gravity="center"
+                        android:layout_weight="5"
+                        android:text="10"
+                        android:textSize="30dp" />
+
+
+                    <TextView
+                        android:id="@+id/tvRevnueNoShow"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="right|center"
+                        android:layout_weight="4"
+                        android:gravity="right"
+                        android:text="100"
+                        android:textSize="30dp" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_column="2"
+                        android:layout_gravity="top"
+                        android:layout_weight="1"
+                        android:gravity="top|center"
+                        android:text="$"
+                        android:textSize="30dp" />
+
+
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tableLayout1"
+                android:background="#E5E5E5"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/linearLayout2"
+                android:layout_marginTop="16dp"
+                android:background="#CBCBCB"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="3"
+                    android:gravity="left|center"
+                    android:text="UPCOMING APPOINTMENT"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/btnHideUpComming"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:text="Hide"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewUpcommingAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@+id/linearLayout3"
+
+                android:background="#F1F1F1"
+
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/recyclerViewUpcommingAppointment"
+                android:layout_marginTop="16dp"
+                android:background="#CBCBCB"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="3"
+                    android:gravity="left|center"
+                    android:text="THIS WEEK'S APPOINTMENT"
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:id="@+id/btnHideThisWeek"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:text="Hide"
+
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewWeekAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@+id/linearLayout4"
+                android:background="#F1F1F1"
+                android:scrollbars="vertical" />
+
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>
