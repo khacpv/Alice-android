@@ -20,6 +20,8 @@ import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.User;
+import com.namestore.alicenote.utils.AppUtils;
+import com.namestore.alicenote.utils.ViewUtils;
 
 /**
  * Created by kienht on 10/24/16.
@@ -123,8 +125,8 @@ public class LoginFragment extends CoreFragment {
         mButtonFb.setOnClickListener(this);
         mButtonGoogleP.setOnClickListener(this);
         mTextViewContact.setOnClickListener(this);
-        configEditTex(mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
-        configEditTex(mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
+        ViewUtils.configEditTex(getActivity(), mEditTexEmail, linearLayout, "Email", R.drawable.icon_email, mTextViewIncorrect);
+        ViewUtils.configEditTex(getActivity(), mEditTexPassword, linearLayout, "Password", R.drawable.icon_password, mTextViewIncorrect);
     }
 
 
@@ -147,30 +149,30 @@ public class LoginFragment extends CoreFragment {
                 mUser.email = mEditTexEmail.getText().toString();
                 mUser.password_hash = mEditTexPassword.getText().toString();
                 if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.password_hash)) {
-                    showShortToast("Please filling in the blanks");
+                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
                 } else {
                     listener.onViewClick(Constants.LOGIN_BUTTON, mUser);
                 }
                 break;
 
             case R.id.textview_forgot_pass:
-                showShortToast(Constants.FORGOT_PASS);
+                AppUtils.showShortToast(getActivity(),Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                showShortToast(Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(),Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
-                listener.onViewClick(Constants.LOGIN_FACEBOOK);
+                listener.onViewClick(Constants.LOGIN_FACEBOOK, mUser);
                 break;
 
             case R.id.button_google_login:
-                listener.onViewClick(Constants.LOGIN_GOOGLE);
+                listener.onViewClick(Constants.LOGIN_GOOGLE, mUser);
                 break;
 
             case R.id.textview_contact:
-                showShortToast(Constants.CONTACT_ALICE);
+                AppUtils.showShortToast(getActivity(),Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:

@@ -21,8 +21,10 @@ import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
+import com.namestore.alicenote.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +43,6 @@ public class NailServicesFragment extends CoreFragment {
     Button mButtonAddService;
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
     private String newService;
     private ArrayList<String> arrayListNailService;
     SubServicesAdapter subServicesAdapter;
@@ -78,12 +79,6 @@ public class NailServicesFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
     }
 
     @Override
@@ -92,13 +87,6 @@ public class NailServicesFragment extends CoreFragment {
 
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
         }
     }
 
@@ -124,7 +112,7 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        configEditTex(mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+        ViewUtils.configEditTex(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
         nailServicesArrayList = new ArrayList<>();
 
@@ -147,7 +135,9 @@ public class NailServicesFragment extends CoreFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                listener.onViewClick(Constants.PICK_SERVICE);
+                if(mActivity instanceof OnFirstSetupActivityListener){
+                    ((OnFirstSetupActivityListener)mActivity).pickSalonService();
+                }
                 break;
 
             /**

@@ -21,6 +21,8 @@ import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.User;
+import com.namestore.alicenote.utils.AppUtils;
+import com.namestore.alicenote.utils.ViewUtils;
 
 /**
  * Created by kienht on 10/24/16.
@@ -125,14 +127,14 @@ public class SignUpFragment extends CoreFragment {
         mTextViewAlreadyAccount.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
 
-        configEditTex(mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
-        configEditTex(mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
-        configEditTex(mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
-        configEditTex(mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
-        configEditTex(mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
+        ViewUtils.configEditTex(getActivity(), mEditTextEmail, linearLayout, "Email", R.drawable.icon_email, null);
+        ViewUtils.configEditTex(getActivity(), mEditTextPassword, linearLayout, "Password", R.drawable.icon_password, null);
+        ViewUtils.configEditTex(getActivity(), mEditTextPhone, linearLayout, "Phone", R.drawable.icon_email, null);
+        ViewUtils.configEditTex(getActivity(), mEditTextFirstName, linearLayout, "First Name", R.drawable.icon_email, null);
+        ViewUtils.configEditTex(getActivity(), mEditTextLastName, linearLayout, "Last Name", R.drawable.icon_email, null);
 
         String[] gender = getResources().getStringArray(R.array.gender);
-        configSpinner(gender, mSpinnerGender);
+        ViewUtils.configSpinner(getActivity(), gender, mSpinnerGender);
     }
 
     @Override
@@ -147,7 +149,7 @@ public class SignUpFragment extends CoreFragment {
                 mUser.last_name = mEditTextLastName.getText().toString();
                 mUser.email = mEditTextEmail.getText().toString();
                 mUser.password_hash = mEditTextPassword.getText().toString();
-                mUser.telephone = getIntfromEdittex(mEditTextPhone);
+                mUser.telephone = mEditTextPhone.getText().toString();
 
                 if (mSpinnerGender.getSelectedItem().toString().equals("Male")) {
                     mUser.gender = GENDER_MALE;
@@ -159,15 +161,15 @@ public class SignUpFragment extends CoreFragment {
 
                 if (TextUtils.isEmpty(mUser.first_name) || TextUtils.isEmpty(mUser.last_name)
                         || TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.password_hash)
-                        || mUser.telephone != 0 || mUser.gender != 0) {
-                    showShortToast("Please filling in the blanks");
+                        || TextUtils.isEmpty(mUser.telephone) || mUser.gender == 0) {
+                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
                 } else {
                     listener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
                 }
 
                 break;
             case R.id.textview_report_error_signup:
-                showShortToast(Constants.REPORT_ERROR);
+                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
                 break;
             case R.id.button_facebook_signup:
                 listener.onViewClick(Constants.LOGIN_FACEBOOK);

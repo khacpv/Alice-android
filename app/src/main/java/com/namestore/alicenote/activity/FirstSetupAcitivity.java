@@ -1,7 +1,10 @@
 package com.namestore.alicenote.activity;
 
+import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +17,19 @@ import com.namestore.alicenote.fragment.NailServicesFragment;
 import com.namestore.alicenote.fragment.PickSalonServiceFragment;
 import com.namestore.alicenote.fragment.SetupInfoSalonFragment;
 import com.namestore.alicenote.fragment.TimeOpenDoorFragment;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by kienht on 10/25/16.
  */
 
-public class FirstSetupAcitivity extends CoreActivity implements View.OnClickListener, OnFragmentInteractionListener {
+
+public class FirstSetupAcitivity extends CoreActivity implements View.OnClickListener,
+        OnFragmentInteractionListener,
+        OnFirstSetupActivityListener {
 
 
     private SetupInfoSalonFragment mSetupInfoSalonFragment;
@@ -29,6 +38,8 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
     private HairServicesFragment mHairServicesFragment;
     private NailServicesFragment mNailServicesFragment;
     private ConfigSalonServicesFragment mConfigSalonServicesFragment;
+
+    ArrayList<CoreFragment> fragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,40 +59,73 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
         mNailServicesFragment = new NailServicesFragment();
         mConfigSalonServicesFragment = new ConfigSalonServicesFragment();
 
+        fragments.add(mSetupInfoSalonFragment);
+        fragments.add(mTimeOpenDoorFragment);
+        fragments.add(mPickSalonServiceFragment);
+        fragments.add(mHairServicesFragment);
+        fragments.add(mNailServicesFragment);
+        fragments.add(mConfigSalonServicesFragment);
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.container, mSetupInfoSalonFragment)
+                .add(R.id.container, mTimeOpenDoorFragment)
+                .add(R.id.container, mPickSalonServiceFragment)
+                .add(R.id.container, mHairServicesFragment)
+                .add(R.id.container, mNailServicesFragment)
+                .add(R.id.container, mConfigSalonServicesFragment)
+                .commit();
+
         if (getIntent().getExtras().getInt(Constants.FIRST_SETUP_SCREEN) == Constants.KEY_SETUP_INFO_SALON) {
-            showSetupInfoSalon();
+            showFragment(mSetupInfoSalonFragment);
         }
+    }
 
+    public void showFragment(Fragment fragmentToShow) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        for (CoreFragment _fragment : fragments) {
+            if (_fragment == fragmentToShow) {
+                transaction.show(fragmentToShow);
+            } else {
+                transaction.hide(_fragment);
+            }
+        }
+        transaction.commit();
     }
 
 
+    @Override
     public void showSetupInfoSalon() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mSetupInfoSalonFragment).commit();
+        showFragment(mSetupInfoSalonFragment);
 
     }
 
+    @Override
     public void showTimeOpenDoorSalon() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mTimeOpenDoorFragment).commit();
+        showFragment(mTimeOpenDoorFragment);
 
     }
 
+    @Override
     public void pickSalonService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mPickSalonServiceFragment).commit();
+        showFragment(mPickSalonServiceFragment);
 
     }
 
+    @Override
     public void nailService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mNailServicesFragment).commit();
+        showFragment(mNailServicesFragment);
 
     }
 
+    @Override
     public void hairService() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mHairServicesFragment).commit();
+        showFragment(mHairServicesFragment);
 
     }
 
+    @Override
     public void configServices() {
-        getFragmentManager().beginTransaction().replace(R.id.container, mConfigSalonServicesFragment).commit();
+        showFragment(mConfigSalonServicesFragment);
 
     }
 
@@ -92,26 +136,6 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
 
     @Override
     public void onViewClick(String tag) {
-        switch (tag) {
-            case Constants.SETUP_INFO_SALON:
-                showSetupInfoSalon();
-                break;
-            case Constants.TIME_OPEN_DOOR_FRAGMENT:
-                showTimeOpenDoorSalon();
-                break;
-            case Constants.PICK_SERVICE:
-                pickSalonService();
-                break;
-            case Constants.CONFIG_SERVICE:
-                configServices();
-                break;
-            case Constants.NAIL_SERVICE:
-                nailService();
-                break;
-            case Constants.HAIR_SERVICE:
-                hairService();
-                break;
-        }
     }
 
     @Override

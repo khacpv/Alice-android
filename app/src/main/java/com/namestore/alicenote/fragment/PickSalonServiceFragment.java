@@ -17,8 +17,10 @@ import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.MainServiceAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.MainServices;
+import com.namestore.alicenote.utils.AppUtils;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,6 @@ public class PickSalonServiceFragment extends CoreFragment {
     TextView mTextViewTitle;
     ListView mListViewImageService;
     private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
 
     @Nullable
     @Override
@@ -59,12 +60,6 @@ public class PickSalonServiceFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
     }
 
     @Override
@@ -72,12 +67,6 @@ public class PickSalonServiceFragment extends CoreFragment {
         super.onAttach(activity);
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
         }
     }
 
@@ -112,16 +101,20 @@ public class PickSalonServiceFragment extends CoreFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
                     case 0:
-                        listener.onViewClick(Constants.NAIL_SERVICE);
+                        if (mActivity instanceof OnFirstSetupActivityListener) {
+                            ((OnFirstSetupActivityListener) mActivity).nailService();
+                        }
                         break;
                     case 1:
-                        listener.onViewClick(Constants.HAIR_SERVICE);
+                        if (mActivity instanceof OnFirstSetupActivityListener) {
+                            ((OnFirstSetupActivityListener) mActivity).hairService();
+                        }
                         break;
                     case 2:
-                        showShortToast("BEAUTY SERVICE");
+                        AppUtils.showShortToast(getActivity(),"BEAUTY SERVICE");
                         break;
                     case 3:
-                        showShortToast("COMMING SOON SERVICE");
+                        AppUtils.showShortToast(getActivity(),"COMMING SOON SERVICE");
                         break;
                 }
             }
@@ -133,10 +126,14 @@ public class PickSalonServiceFragment extends CoreFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                listener.onViewClick(Constants.TIME_OPEN_DOOR_FRAGMENT);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
+                }
                 break;
             case R.id.button_next:
-                listener.onViewClick(Constants.CONFIG_SERVICE);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).configServices();
+                }
                 break;
 
             default:

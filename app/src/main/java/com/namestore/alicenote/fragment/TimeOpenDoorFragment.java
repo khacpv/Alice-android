@@ -1,22 +1,24 @@
 package com.namestore.alicenote.fragment;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.namestore.alicenote.R;
-import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
+import com.namestore.alicenote.utils.ViewUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kienht on 10/25/16.
@@ -33,22 +35,28 @@ public class TimeOpenDoorFragment extends CoreFragment {
     CheckBox mCheckBoxFriday;
     CheckBox mCheckBoxSaturday;
     CheckBox mCheckBoxSunday;
-    Spinner mSpinnerTimeStartDay1, mSpinnerTimeEndDay1;
-    Spinner mSpinnerTimeStartDay2, mSpinnerTimeEndDay2;
-    Spinner mSpinnerTimeStartDay3, mSpinnerTimeEndDay3;
-    Spinner mSpinnerTimeStartDay4, mSpinnerTimeEndDay4;
-    Spinner mSpinnerTimeStartDay5, mSpinnerTimeEndDay5;
-    Spinner mSpinnerTimeStartDay6, mSpinnerTimeEndDay6;
-    Spinner mSpinnerTimeStartDay7, mSpinnerTimeEndDay7;
-    private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
+    Spinner mSpinnerTimeStartMonday, mSpinnerTimeEndMonday;
+    Spinner mSpinnerTimeStartTuesday, mSpinnerTimeEndTuesday;
+    Spinner mSpinnerTimeStartWednesday, mSpinnerTimeEndWednesday;
+    Spinner mSpinnerTimeStartThursday, mSpinnerTimeEndThursday;
+    Spinner mSpinnerTimeStartFriday, mSpinnerTimeEndFriday;
+    Spinner mSpinnerTimeStartSaturday, mSpinnerTimeEndSaturday;
+    Spinner mSpinnerTimeStartSunday, mSpinnerTimeEndSunday;
+
+    class WorkingDay {
+        String day;
+        int startTime;
+        int endTime;
+        boolean checked = false;
+    }
+
+    List<WorkingDay> workingDays = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_timeopendoor, container, false);
         initViews(view);
-        initModels();
         return view;
 
     }
@@ -57,10 +65,33 @@ public class TimeOpenDoorFragment extends CoreFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        for (int i = 2; i <= 8; i++) {
+            WorkingDay item = new WorkingDay();
+            item.day = "Thu " + i;
+            item.startTime = 0;
+            item.endTime = 0;
+            workingDays.add(item);
+        }
+
+        initModels();
+    }
+
+    @Override
+    protected void initModels() {
+        mTextViewTitle.setText("When is \"Your Salon\" Open?");
+        mButtonBack.setOnClickListener(this);
+        mButtonNext.setOnClickListener(this);
+        setupSpinner();
+        configSpinner();
     }
 
     public void setupSpinner() {
+        // thu 2
+        mCheckBoxMonday.setChecked(workingDays.get(0).checked);
+        mSpinnerTimeStartMonday.setSelection(workingDays.get(0).startTime);
+        mSpinnerTimeEndMonday.setSelection(workingDays.get(0).endTime);
         mCheckBoxMonday.setText("Monday");
+
         mCheckBoxTuesday.setText("Tuesday");
         mCheckBoxWednesday.setText("Wednesday");
         mCheckBoxThursday.setText("Thursday");
@@ -72,9 +103,9 @@ public class TimeOpenDoorFragment extends CoreFragment {
     public void configSpinner() {
         String[] hour_open = getResources().getStringArray(R.array.hour_open);
 
-        configSpinner(hour_open, mSpinnerTimeEndDay1, mSpinnerTimeEndDay2, mSpinnerTimeEndDay3, mSpinnerTimeEndDay4, mSpinnerTimeEndDay5,
-                mSpinnerTimeEndDay6, mSpinnerTimeEndDay7, mSpinnerTimeStartDay1, mSpinnerTimeStartDay2, mSpinnerTimeStartDay3, mSpinnerTimeStartDay4,
-                mSpinnerTimeStartDay5, mSpinnerTimeStartDay6, mSpinnerTimeStartDay7);
+        ViewUtils.configSpinner(getActivity(), hour_open, mSpinnerTimeEndMonday, mSpinnerTimeEndTuesday, mSpinnerTimeEndWednesday, mSpinnerTimeEndThursday, mSpinnerTimeEndFriday,
+                mSpinnerTimeEndSaturday, mSpinnerTimeEndSunday, mSpinnerTimeStartMonday, mSpinnerTimeStartTuesday, mSpinnerTimeStartWednesday, mSpinnerTimeStartThursday,
+                mSpinnerTimeStartFriday, mSpinnerTimeStartSaturday, mSpinnerTimeStartSunday);
     }
 
     @Override
@@ -92,76 +123,75 @@ public class TimeOpenDoorFragment extends CoreFragment {
         mCheckBoxSaturday = (CheckBox) view.findViewById(R.id.day6).findViewById(R.id.days);
         mCheckBoxSunday = (CheckBox) view.findViewById(R.id.day7).findViewById(R.id.days);
 
-        mSpinnerTimeStartDay1 = (Spinner) view.findViewById(R.id.day1).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay1 = (Spinner) view.findViewById(R.id.day1).findViewById(R.id.hour_end);
+        mSpinnerTimeStartMonday = (Spinner) view.findViewById(R.id.day1).findViewById(R.id.hour_start);
+        mSpinnerTimeEndMonday = (Spinner) view.findViewById(R.id.day1).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay2 = (Spinner) view.findViewById(R.id.day2).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay2 = (Spinner) view.findViewById(R.id.day2).findViewById(R.id.hour_end);
+        mSpinnerTimeStartTuesday = (Spinner) view.findViewById(R.id.day2).findViewById(R.id.hour_start);
+        mSpinnerTimeEndTuesday = (Spinner) view.findViewById(R.id.day2).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay3 = (Spinner) view.findViewById(R.id.day3).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay3 = (Spinner) view.findViewById(R.id.day3).findViewById(R.id.hour_end);
+        mSpinnerTimeStartWednesday = (Spinner) view.findViewById(R.id.day3).findViewById(R.id.hour_start);
+        mSpinnerTimeEndWednesday = (Spinner) view.findViewById(R.id.day3).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay4 = (Spinner) view.findViewById(R.id.day4).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay4 = (Spinner) view.findViewById(R.id.day4).findViewById(R.id.hour_end);
+        mSpinnerTimeStartThursday = (Spinner) view.findViewById(R.id.day4).findViewById(R.id.hour_start);
+        mSpinnerTimeEndThursday = (Spinner) view.findViewById(R.id.day4).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay5 = (Spinner) view.findViewById(R.id.day5).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay5 = (Spinner) view.findViewById(R.id.day5).findViewById(R.id.hour_end);
+        mSpinnerTimeStartFriday = (Spinner) view.findViewById(R.id.day5).findViewById(R.id.hour_start);
+        mSpinnerTimeEndFriday = (Spinner) view.findViewById(R.id.day5).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay6 = (Spinner) view.findViewById(R.id.day6).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay6 = (Spinner) view.findViewById(R.id.day6).findViewById(R.id.hour_end);
+        mSpinnerTimeStartSaturday = (Spinner) view.findViewById(R.id.day6).findViewById(R.id.hour_start);
+        mSpinnerTimeEndSaturday = (Spinner) view.findViewById(R.id.day6).findViewById(R.id.hour_end);
 
-        mSpinnerTimeStartDay7 = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_start);
-        mSpinnerTimeEndDay7 = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_end);
+        mSpinnerTimeStartSunday = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_start);
+        mSpinnerTimeEndSunday = (Spinner) view.findViewById(R.id.day7).findViewById(R.id.hour_end);
+
+        initEvent();
     }
 
-    @Override
-    protected void initModels() {
-        mTextViewTitle.setText("When is \"Your Salon\" Open?");
-        mButtonBack.setOnClickListener(this);
-        mButtonNext.setOnClickListener(this);
-        setupSpinner();
-        configSpinner();
-    }
+    private void initEvent() {
+        mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                workingDays.get(0).checked = b;
+            }
+        });
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+        mSpinnerTimeStartMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                workingDays.get(0).startTime = position;
+            }
 
-        if (context instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
-        }
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+            }
+        });
 
-        if (activity instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
+        mSpinnerTimeEndMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                workingDays.get(0).endTime = position;
+            }
 
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                listener.onViewClick(Constants.SETUP_INFO_SALON);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showSetupInfoSalon();
+                }
                 break;
             case R.id.button_next:
-                listener.onViewClick(Constants.PICK_SERVICE);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
+                }
                 break;
             default:
                 break;

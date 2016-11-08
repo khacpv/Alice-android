@@ -36,18 +36,10 @@ public abstract class CoreActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void logE(String mess) {
-        Log.e(Constants.TAG, mess);
-    }
-
-    public void showShortToast(String msg) {
-        Toast.makeText(this.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-    }
-
     public void hideKeyBoard() {
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager keyBoard = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager keyBoard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             keyBoard.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

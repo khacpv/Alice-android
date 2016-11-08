@@ -37,7 +37,7 @@ public class User {
 
     @SerializedName("telephone")
     @Expose
-    public int telephone;
+    public String telephone;
 
     @SerializedName("id")
     @Expose
@@ -63,7 +63,7 @@ public class User {
         return last_name;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 

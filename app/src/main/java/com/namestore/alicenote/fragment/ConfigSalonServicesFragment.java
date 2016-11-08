@@ -21,6 +21,7 @@ import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.AllServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 
@@ -42,7 +43,6 @@ public class ConfigSalonServicesFragment extends CoreFragment {
     Dialog configDialog;
     TextView mTextViewTitleDialog;
     private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
 
     public ConfigSalonServicesFragment() {
     }
@@ -110,12 +110,6 @@ public class ConfigSalonServicesFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
     }
 
     @Override
@@ -124,13 +118,6 @@ public class ConfigSalonServicesFragment extends CoreFragment {
 
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
         }
     }
 
@@ -180,7 +167,9 @@ public class ConfigSalonServicesFragment extends CoreFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                listener.onViewClick(Constants.PICK_SERVICE);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
+                }
                 break;
 
             default:

@@ -53,7 +53,7 @@
         android:foregroundGravity="left"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:maxLength="16"
+        android:maxLength="30"
         android:maxLines="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -103,7 +103,6 @@
         android:id="@+id/spinner_signup_gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        />
+        android:gravity="start" />
 
 </LinearLayout>

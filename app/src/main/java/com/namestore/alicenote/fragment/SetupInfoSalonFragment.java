@@ -17,13 +17,15 @@ import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.utils.ViewUtils;
 
 /**
  * Created by kienht on 10/31/16.
  */
 
-public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentInteractionListener {
+public class SetupInfoSalonFragment extends CoreFragment {
 
     Button mButtonBack;
     Button mButtonNext;
@@ -36,7 +38,6 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
     Spinner mSpinnerBsnType;
     LinearLayout linearLayout;
     private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
 
 
     @Override
@@ -53,8 +54,9 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
 
         String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
         String[] bussiness_state = getResources().getStringArray(R.array.us_states);
-        configSpinner(bussiness_type, mSpinnerBsnType);
-        configSpinner(bussiness_state, mSpinnerBsnState);
+
+        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
+        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
 
     }
 
@@ -84,10 +86,10 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
         mButtonBack.setVisibility(View.INVISIBLE);
         mButtonNext.setOnClickListener(this);
         mTextViewTitle.setText("Welcome to AliceNote");
-        configEditTex(mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
-        configEditTex(mEditTexBsnCity, linearLayout, "City", 0, null);
-        configEditTex(mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
-        configEditTex(mEditTexBsnAddress, linearLayout, "Address", 0, null);
+        ViewUtils.configEditTex(getActivity(), mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
+        ViewUtils.configEditTex(getActivity(), mEditTexBsnCity, linearLayout, "City", 0, null);
+        ViewUtils.configEditTex(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
+        ViewUtils.configEditTex(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
 
         configSpinner();
     }
@@ -99,13 +101,6 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
         if (context instanceof StartActivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
-
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
     }
 
     @Override
@@ -115,14 +110,6 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
         if (activity instanceof StartActivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
         }
-
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-
     }
 
     @Override
@@ -130,18 +117,10 @@ public class SetupInfoSalonFragment extends CoreFragment implements OnFragmentIn
         super.onClick(view);
         switch (view.getId()) {
             case R.id.button_next:
-                listener.onViewClick(Constants.TIME_OPEN_DOOR_FRAGMENT);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).showTimeOpenDoorSalon();
+                }
                 break;
         }
-    }
-
-    @Override
-    public void onViewClick(String tag) {
-
-    }
-
-    @Override
-    public void onViewClick(String tag, Object object) {
-
     }
 }

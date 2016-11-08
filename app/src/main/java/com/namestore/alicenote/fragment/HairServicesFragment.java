@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.namestore.alicenote.utils.ViewUtils;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 
@@ -45,7 +49,6 @@ public class HairServicesFragment extends CoreFragment {
     SubServicesAdapter subServicesAdapter;
 
     private FirstSetupAcitivity firstSetupAcitivity;
-    OnFragmentInteractionListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,7 +80,8 @@ public class HairServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        configEditTex(mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
+
+        ViewUtils.configEditTex(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
 
         hairServicesArrayList = new ArrayList<>();
 
@@ -102,12 +106,7 @@ public class HairServicesFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
-        try {
-            listener = (OnFragmentInteractionListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
+
     }
 
     @Override
@@ -118,19 +117,16 @@ public class HairServicesFragment extends CoreFragment {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
         }
 
-        try {
-            listener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                listener.onViewClick(Constants.PICK_SERVICE);
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
+                }
                 break;
 
             /**
@@ -143,7 +139,7 @@ public class HairServicesFragment extends CoreFragment {
                 if (!TextUtils.isEmpty(newService)) {
                     mEditTexAddHairService.getText().clear();
                     subServicesAdapter.addItem(temp);
-                    recyclerViewNailService.scrollToPosition(subServicesAdapter .getItemCount() - 1);
+                    recyclerViewNailService.scrollToPosition(subServicesAdapter.getItemCount() - 1);
                 }
                 break;
 

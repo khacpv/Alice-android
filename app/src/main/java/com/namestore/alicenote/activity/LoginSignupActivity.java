@@ -37,6 +37,7 @@ import com.namestore.alicenote.fragment.LoginFragment;
 import com.namestore.alicenote.fragment.SignUpFragment;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.User;
+import com.namestore.alicenote.utils.AppUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,13 +148,13 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
                             @Override
                             public void onCancel() {
-                                logE("FB CANCEL");
+                                AppUtils.logE("FB CANCEL");
                                 mLoginButtonFb.setClickable(true);
                             }
 
                             @Override
                             public void onError(FacebookException exception) {
-                                logE("FB ERROR");
+                                AppUtils.logE("FB ERROR");
                                 mLoginButtonFb.setClickable(true);
 
                             }
@@ -187,21 +188,10 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                         mUser.gender = SignUpFragment.GENDER_FEMALE;
                     }
                     mUser.password_hash = "";
-                    mUser.telephone = 0;
+                    mUser.telephone = "";
                     setPrgDialog("Loging");
+                    loginViaSocial(mUser);
 
-                    aliceApi.socialLogin(mUser).enqueue(new Callback<RSPLoginSignup>() {
-                        @Override
-                        public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                            prgDialog.hide();
-                            logE("" + response.body().getStatus());
-                        }
-
-                        @Override
-                        public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
-
-                        }
-                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -278,24 +268,14 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 // Signed in successfully, show authenticated UI.
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                mUser.first_name= acct.getGivenName();
+                mUser.first_name = acct.getGivenName();
                 mUser.last_name = acct.getFamilyName();
                 mUser.email = acct.getEmail();
-                mUser.id =  acct.getId();
+                mUser.id = acct.getId();
                 mUser.gender = 0;
                 //Uri personPhoto = acct.getPhotoUrl();
 
-                aliceApi.socialLogin(mUser).enqueue(new Callback<RSPLoginSignup>() {
-                    @Override
-                    public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                        logE(response.body().getStatus() + "||" + response.body().getToken());
-                    }
-
-                    @Override
-                    public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
-
-                    }
-                });
+                loginViaSocial(mUser);
 
             } else {
                 // Signed out, show unauthenticated UI.
@@ -305,88 +285,121 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
     @Override
     public void onViewClick(String tag, Object object) {
+        mUser = (User) object;
         switch (tag) {
             case Constants.LOGIN_BUTTON:
-
                 hideKeyBoard();
                 setPrgDialog("Loging");
-                mUser = (User) object;
-                logE("REQUEST: " + aliceApi.login(mUser).request().body().contentType().toString());
-                aliceApi.login(mUser).enqueue(new Callback<RSPLoginSignup>() {
-                    @Override
-                    public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                        if (response.isSuccessful()) {
-
-                            prgDialog.hide();
-
-                            switch (response.body().getStatus()) {
-                                case LOGIN_ERROR:
-                                    if (response.body().getErrors().has("email")) {
-                                        String emailBlank = response.body().getErrors().get("email").getAsString();
-                                        String passwordBlank = response.body().getErrors().get("password_hash").getAsString();
-                                        if (mLoginFragment != null) {
-                                            mLoginFragment.setHintEdittex(emailBlank, passwordBlank);
-                                        }
-                                    } else {
-                                        String incorrect = response.body().getErrors().get("password_hash").getAsString();
-                                        if (mLoginFragment != null) {
-                                            mLoginFragment.setTextViewIncorrect(incorrect);
-                                        }
-                                    }
-                                    break;
-                                case LOGIN_SUCCESS:
-                                    // moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
-                                    break;
-                                case LOGED:
-                                    // moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
-                                    break;
-                                case FIRST_LOGIN:
-                                    // moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
-                                    break;
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
-                        if (call.isCanceled()) {
-                            logE("request was cancelled");
-                        } else {
-                            logE("FAILED " + t.getLocalizedMessage());
-                        }
-
-                    }
-                });
+                login(mUser);
                 break;
 
             case Constants.SIGNUP_BUTTON:
                 hideKeyBoard();
-                setPrgDialog("Registering");
-                mUser = (User) object;
-                aliceApi.signup(mUser).enqueue(new Callback<RSPLoginSignup>() {
-                    @Override
-                    public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                        logE("OK || STATUS" + response.body().getStatus());
-                        prgDialog.hide();
-                    }
-
-                    @Override
-                    public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
-                        if (call.isCanceled()) {
-                            logE("request was cancelled");
-                        } else {
-                            logE("FAILED " + t.getLocalizedMessage());
-                        }
-                    }
-                });
-
+                setPrgDialog("Register");
+                signUp(mUser);
                 break;
         }
     }
 
+    /**
+     * API LOGIN
+     */
+    public void login(User user) {
+        aliceApi.login(user).enqueue(new Callback<RSPLoginSignup>() {
+            @Override
+            public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                if (response.isSuccessful()) {
+                    AppUtils.logE(response.body().getStatus() + "||" + response.body().getToken());
+                    prgDialog.hide();
+                    switch (response.body().getStatus()) {
+                        case LOGIN_ERROR:
+                            if (response.body().getErrors().has("email")) {
+                                String emailBlank = response.body().getErrors().get("email").getAsString();
+                                String passwordBlank = response.body().getErrors().get("password_hash").getAsString();
+                                if (mLoginFragment != null) {
+                                    mLoginFragment.setHintEdittex(emailBlank, passwordBlank);
+                                }
+                            } else {
+                                String incorrect = response.body().getErrors().get("password_hash").getAsString();
+                                if (mLoginFragment != null) {
+                                    mLoginFragment.setTextViewIncorrect(incorrect);
+                                }
+                            }
+                            break;
+                        case LOGIN_SUCCESS:
+                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            break;
+                        case LOGED:
+                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            break;
+                        case FIRST_LOGIN:
+                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * API LOGIN VIA SOCIAL
+     */
+    public void loginViaSocial(User user) {
+        aliceApi.socialLogin(user).enqueue(new Callback<RSPLoginSignup>() {
+            @Override
+            public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                if(response.isSuccessful()){
+                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * API SIGNUP
+     */
+    public void signUp(User user) {
+        aliceApi.signup(user).enqueue(new Callback<RSPLoginSignup>() {
+            @Override
+            public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                AppUtils.logE("OK || STATUS" + response.body().getStatus());
+                prgDialog.hide();
+                if(response.isSuccessful()){
+                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
+            }
+        });
+    }
+
     @Override
     public void onClick(View view) {
-
     }
 
     @Override
