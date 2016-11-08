@@ -1,7 +1,6 @@
 package com.namestore.alicenote.activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,16 +22,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.connect.ServiceGenerator;
 import com.namestore.alicenote.connect.network.api.AliceApi;
 import com.namestore.alicenote.connect.reponse.RSPLoginSignup;
 import com.namestore.alicenote.core.CoreActivity;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.fragment.FillFullInforUserFragment;
 import com.namestore.alicenote.fragment.LoginFragment;
 import com.namestore.alicenote.fragment.SignUpFragment;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
@@ -62,14 +59,15 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
     private AccessTokenTracker mAccessTokenTracker;
     private CallbackManager mCallbackManagerFb;
-    AccessToken mAccessToken;
     private LoginFragment mLoginFragment;
     private SignUpFragment mSignUpFragment;
-    AliceApi aliceApi;
-    User mUser = new User();
+    private FillFullInforUserFragment mFillFullInforUserFragment;
+    private AliceApi aliceApi;
+    public User mUser = new User();
     private LoginButton mLoginButtonFb;
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
+    AccessToken mAccessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +90,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
         mLoginFragment = new LoginFragment();
         mSignUpFragment = new SignUpFragment();
+        mFillFullInforUserFragment = new FillFullInforUserFragment();
 
         if (getIntent().getExtras().getInt(Constants.LOGIN_SIGNUP_SCREEN) == Constants.KEY_LOGIN) {
             showLoginView();
@@ -105,6 +104,8 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
         loginFb();
 
+
+        //Google Sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -113,8 +114,10 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        //Google Sign-in
 
         prgDialog = new ProgressDialog(this);
+
     }
 
     /**
@@ -179,18 +182,18 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 try {
                     mUser.id = object.getString("id");
                     mUser.email = object.getString("email");
-                    mUser.first_name = object.getString("first_name");
-                    mUser.last_name = object.getString("last_name");
+                    mUser.firstName = object.getString("first_name");
+                    mUser.lastName = object.getString("last_name");
                     String gender = object.getString("gender");
                     if (gender.equals("male")) {
                         mUser.gender = SignUpFragment.GENDER_MALE;
                     } else {
                         mUser.gender = SignUpFragment.GENDER_FEMALE;
                     }
-                    mUser.password_hash = "";
+                    mUser.passwordHash = "";
                     mUser.telephone = "";
-                    setPrgDialog("Loging");
-                    loginViaSocial(mUser);
+
+                    showFillInforUserView();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -203,9 +206,26 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         request.executeAsync();
     }
 
-    public void loginGooglePlus() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    public void getUserInfoFromGooglePlus(int requestCode, Intent data) {
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Signed in successfully, show authenticated UI.
+                GoogleSignInAccount acct = result.getSignInAccount();
+
+                mUser.firstName = acct.getGivenName();
+                mUser.lastName = acct.getFamilyName();
+                mUser.email = acct.getEmail();
+                mUser.id = acct.getId();
+                mUser.gender = 0;
+                //Uri personPhoto = acct.getPhotoUrl();
+
+                showFillInforUserView();
+
+            } else {
+                // Signed out, show unauthenticated UI.
+            }
+        }
     }
 
     /**
@@ -223,9 +243,14 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
     }
 
+    private void showFillInforUserView() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mFillFullInforUserFragment).commit();
+
+    }
 
     public void moveFirstSetupAct(int key) {
         Intent mIntent = new Intent(LoginSignupActivity.this, FirstSetupAcitivity.class);
+        mIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, key);
         startActivity(mIntent);
     }
@@ -248,9 +273,9 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 mLoginButtonFb.performClick();
                 break;
             case Constants.LOGIN_GOOGLE:
-                loginGooglePlus();
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
                 break;
-
         }
     }
 
@@ -262,25 +287,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         mCallbackManagerFb.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                // Signed in successfully, show authenticated UI.
-                GoogleSignInAccount acct = result.getSignInAccount();
-
-                mUser.first_name = acct.getGivenName();
-                mUser.last_name = acct.getFamilyName();
-                mUser.email = acct.getEmail();
-                mUser.id = acct.getId();
-                mUser.gender = 0;
-                //Uri personPhoto = acct.getPhotoUrl();
-
-                loginViaSocial(mUser);
-
-            } else {
-                // Signed out, show unauthenticated UI.
-            }
-        }
+        getUserInfoFromGooglePlus(requestCode, data);
     }
 
     @Override
@@ -297,6 +304,12 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 hideKeyBoard();
                 setPrgDialog("Register");
                 signUp(mUser);
+                break;
+
+            case Constants.LOGIN_SOCIAL:
+                hideKeyBoard();
+                setPrgDialog("Loging");
+                loginSocial(mUser);
                 break;
         }
     }
@@ -327,38 +340,15 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                             }
                             break;
                         case LOGIN_SUCCESS:
-                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
                             break;
                         case LOGED:
-                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
                             break;
                         case FIRST_LOGIN:
-                             moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
                             break;
                     }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
-                if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
-                } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
-                }
-            }
-        });
-    }
-
-    /**
-     * API LOGIN VIA SOCIAL
-     */
-    public void loginViaSocial(User user) {
-        aliceApi.socialLogin(user).enqueue(new Callback<RSPLoginSignup>() {
-            @Override
-            public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                if(response.isSuccessful()){
-                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
                 }
             }
 
@@ -382,7 +372,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
                 AppUtils.logE("OK || STATUS" + response.body().getStatus());
                 prgDialog.hide();
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
                 }
             }
@@ -396,6 +386,33 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                 }
             }
         });
+    }
+
+    /**
+     * API LOGIN FB or GOOGLE PLUS
+     */
+    public void loginSocial(User user) {
+        aliceApi.socialLogin(user).enqueue(new Callback<RSPLoginSignup>() {
+            @Override
+            public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                if (response.isSuccessful()) {
+                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
+                if (call.isCanceled()) {
+                    AppUtils.logE("request was cancelled");
+                } else {
+                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                }
+            }
+        });
+    }
+
+    public User getUser() {
+        return mUser;
     }
 
     @Override

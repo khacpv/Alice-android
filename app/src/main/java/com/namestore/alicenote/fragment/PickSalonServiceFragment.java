@@ -42,7 +42,6 @@ public class PickSalonServiceFragment extends CoreFragment {
 
         View view = inflater.inflate(R.layout.fm_pick_salon_service, container, false);
         initViews(view);
-        initModels();
         return view;
     }
 
@@ -50,25 +49,9 @@ public class PickSalonServiceFragment extends CoreFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initModels();
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-    }
 
     @Override
     protected void initViews(View view) {
@@ -120,6 +103,23 @@ public class PickSalonServiceFragment extends CoreFragment {
             }
         });
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.namestore.alicenote.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.utils.ViewUtils;
 
 /**
@@ -45,19 +44,14 @@ public class SetupInfoSalonFragment extends CoreFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_setup_info_salon, container, false);
         initViews(view);
-        initModels();
         return view;
 
     }
 
-    public void configSpinner() {
-
-        String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
-        String[] bussiness_state = getResources().getStringArray(R.array.us_states);
-
-        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
-        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
-
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initModels();
     }
 
     @Override
@@ -66,7 +60,6 @@ public class SetupInfoSalonFragment extends CoreFragment {
         mButtonNext = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_next);
 
         mTextViewTitle = (TextView) view.findViewById(R.id.tile_profile_setup).findViewById(R.id.title_first_setup);
-
 
         mEditTexBsnName = (EditText) view.findViewById(R.id.editText_bussiness_name);
         mEditTexBsnCity = (EditText) view.findViewById(R.id.editText_bussiness_city);
@@ -86,13 +79,25 @@ public class SetupInfoSalonFragment extends CoreFragment {
         mButtonBack.setVisibility(View.INVISIBLE);
         mButtonNext.setOnClickListener(this);
         mTextViewTitle.setText("Welcome to AliceNote");
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnCity, linearLayout, "City", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
-        ViewUtils.configEditTex(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnName, linearLayout, "Bussiness Name", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnCity, linearLayout, "City", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnPostCode, linearLayout, "Post Code", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexBsnAddress, linearLayout, "Address", 0, null);
 
         configSpinner();
     }
+
+
+    public void configSpinner() {
+
+        String[] bussiness_type = getResources().getStringArray(R.array.bussiness_type);
+        String[] bussiness_state = getResources().getStringArray(R.array.us_states);
+
+        ViewUtils.configSpinner(getActivity(), bussiness_type, mSpinnerBsnType);
+        ViewUtils.configSpinner(getActivity(), bussiness_state, mSpinnerBsnState);
+
+    }
+
 
     @Override
     public void onAttach(Context context) {

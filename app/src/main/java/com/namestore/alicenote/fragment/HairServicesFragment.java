@@ -3,6 +3,7 @@ package com.namestore.alicenote.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +23,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 
 import java.util.ArrayList;
@@ -55,8 +54,13 @@ public class HairServicesFragment extends CoreFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_config_hair_service, container, false);
         initViews(view);
-        initModels();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initModels();
     }
 
     @Override
@@ -81,7 +85,7 @@ public class HairServicesFragment extends CoreFragment {
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
 
-        ViewUtils.configEditTex(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
+        ViewUtils.configEditText(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
 
         hairServicesArrayList = new ArrayList<>();
 

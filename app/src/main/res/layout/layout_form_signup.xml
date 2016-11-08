@@ -91,7 +91,7 @@
         android:foregroundGravity="left"
         android:hint="Phone"
         android:inputType="phone"
-        android:maxLength="24"
+        android:maxLength="12"
         android:maxLines="1"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

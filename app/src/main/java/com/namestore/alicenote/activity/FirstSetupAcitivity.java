@@ -144,6 +144,7 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
         switch (tag){
             case "DAS":
                 Intent intent = new Intent(FirstSetupAcitivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
                 finish();
                 break;

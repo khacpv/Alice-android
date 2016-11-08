@@ -20,9 +20,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.FirstSetupAcitivity;
 import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
-import com.namestore.alicenote.data.Constants;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.SubServices;
 import com.namestore.alicenote.utils.ViewUtils;
 
@@ -55,40 +53,15 @@ public class NailServicesFragment extends CoreFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fm_config_nail_service, container, false);
         initViews(view);
-        initModels();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        initModels();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        if (activity instanceof FirstSetupAcitivity) {
-            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
-        }
-    }
 
     @Override
     protected void initViews(View view) {
@@ -112,7 +85,7 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        ViewUtils.configEditTex(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
+        ViewUtils.configEditText(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
         nailServicesArrayList = new ArrayList<>();
 
@@ -128,7 +101,24 @@ public class NailServicesFragment extends CoreFragment {
         recyclerViewNailService.setAdapter(subServicesAdapter);
         recyclerViewNailService.setItemAnimator(new DefaultItemAnimator());
 
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) context;
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (activity instanceof FirstSetupAcitivity) {
+            this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
+        }
     }
 
     @Override

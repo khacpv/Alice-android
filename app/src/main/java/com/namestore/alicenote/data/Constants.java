@@ -24,6 +24,7 @@ public class Constants {
     public static final String CONTACT_ALICE = "ContactAlice.Login";
     public static final String LOGIN_BUTTON = "Login.Login";
     public static final String SIGNUP_BUTTON = "Signup.Login";
+    public static final String LOGIN_SOCIAL = "Social.Login";
 
     /* End of Login Activity */
 

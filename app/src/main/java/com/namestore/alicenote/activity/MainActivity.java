@@ -28,12 +28,13 @@ import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import static com.namestore.alicenote.data.Constants.NUM_PAGES;
 
 public class MainActivity extends CoreActivity implements View.OnClickListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        OnFragmentInteractionListener {
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private Button btnDashBoard, btnCalendar, btnClient, btnService, btnMore;
-    private DashBoardFragment mDashBoardFragment =new DashBoardFragment();
+    private DashBoardFragment mDashBoardFragment = new DashBoardFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +54,6 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
         btnMore = (Button) findViewById(R.id.btnMore);*/
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -66,24 +64,39 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
     public void showDashBoardFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
 
     }
+
     public void showClientFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
 
     }
+
     public void showServiceFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
 
     }
+
     public void showCalendarFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
 
     }
+
     public void showMoreFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, mDashBoardFragment).commit();
+
+    }
+
+    @Override
+    public void onViewClick(String tag) {
+
+    }
+
+    @Override
+    public void onViewClick(String tag, Object object) {
 
     }
 
@@ -162,8 +175,7 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.btnCalendar:
                 showCalendarFragment();
             case R.id.btnClient:
@@ -179,9 +191,6 @@ public class MainActivity extends CoreActivity implements View.OnClickListener,
         }
 
     }
-
-
-
 
 
 }

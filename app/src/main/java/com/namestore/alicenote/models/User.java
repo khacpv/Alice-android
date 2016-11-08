@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Created by kienht on 11/4/16.
  */
 
-public class User {
+public class User implements Serializable {
 
     @SerializedName("email")
     @Expose
@@ -20,15 +20,15 @@ public class User {
 
     @SerializedName("password_hash")
     @Expose
-    public String password_hash;
+    public String passwordHash;
 
     @SerializedName("first_name")
     @Expose
-    public String first_name;
+    public String firstName;
 
     @SerializedName("last_name")
     @Expose
-    public String last_name;
+    public String lastName;
 
 
     @SerializedName("gender")
@@ -51,16 +51,48 @@ public class User {
         return email;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getTelephone() {

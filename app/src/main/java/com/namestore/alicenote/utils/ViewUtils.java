@@ -17,7 +17,8 @@ import android.widget.TextView;
 public class ViewUtils {
 
 
-    public static void configEditTex(final Activity activity, final EditText editText, final LinearLayout linearLayout, final String hint, int icon, final TextView textView) {
+    public static void configEditText(final Activity activity, final EditText editText,
+                                      final LinearLayout linearLayout, final String hint, int icon, final TextView textView) {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
