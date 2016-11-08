@@ -3,9 +3,10 @@ package com.namestore.alicenote.activity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 
@@ -66,7 +67,7 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
         fragments.add(mNailServicesFragment);
         fragments.add(mConfigSalonServicesFragment);
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, mSetupInfoSalonFragment)
                 .add(R.id.container, mTimeOpenDoorFragment)
                 .add(R.id.container, mPickSalonServiceFragment)
@@ -81,7 +82,7 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
     }
 
     public void showFragment(Fragment fragmentToShow) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         for (CoreFragment _fragment : fragments) {
             if (_fragment == fragmentToShow) {
                 transaction.show(fragmentToShow);
@@ -97,17 +98,18 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
     public void showSetupInfoSalon() {
         showFragment(mSetupInfoSalonFragment);
 
+
     }
 
     @Override
     public void showTimeOpenDoorSalon() {
         showFragment(mTimeOpenDoorFragment);
-
     }
 
     @Override
     public void pickSalonService() {
         showFragment(mPickSalonServiceFragment);
+
 
     }
 
@@ -115,17 +117,20 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
     public void nailService() {
         showFragment(mNailServicesFragment);
 
+
     }
 
     @Override
     public void hairService() {
         showFragment(mHairServicesFragment);
 
+
     }
 
     @Override
     public void configServices() {
         showFragment(mConfigSalonServicesFragment);
+
 
     }
 
@@ -136,6 +141,13 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
 
     @Override
     public void onViewClick(String tag) {
+        switch (tag){
+            case "DAS":
+                Intent intent = new Intent(FirstSetupAcitivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
     }
 
     @Override

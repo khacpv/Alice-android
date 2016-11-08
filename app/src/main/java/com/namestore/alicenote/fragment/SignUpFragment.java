@@ -102,7 +102,7 @@ public class SignUpFragment extends CoreFragment {
 
 
     @Override
-    protected void initViews(View view) {
+    protected void initViews(View view) {//ham nay de lam gi, goi va su dung nhu the nao
         mTextViewAlreadyAccount = (TextView) view.findViewById(R.id.textview_already_account);
         mButtonSignup = (Button) view.findViewById(R.id.button_signup);
         mEditTextEmail = (EditText) view.findViewById(R.id.signup_form).findViewById(R.id.edittext_signup_email);

@@ -43,6 +43,7 @@ public class ConfigSalonServicesFragment extends CoreFragment {
     Dialog configDialog;
     TextView mTextViewTitleDialog;
     private FirstSetupAcitivity firstSetupAcitivity;
+    OnFragmentInteractionListener listener;
 
     public ConfigSalonServicesFragment() {
     }
@@ -110,6 +111,12 @@ public class ConfigSalonServicesFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
+        try {
+            listener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
@@ -118,6 +125,12 @@ public class ConfigSalonServicesFragment extends CoreFragment {
 
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
+        }
+        try {
+            listener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
         }
     }
 
@@ -170,6 +183,9 @@ public class ConfigSalonServicesFragment extends CoreFragment {
                 if (mActivity instanceof OnFirstSetupActivityListener) {
                     ((OnFirstSetupActivityListener) mActivity).pickSalonService();
                 }
+                break;
+            case R.id.button_next:
+                listener.onViewClick("DAS");
                 break;
 
             default:

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.namestore.alicenote.activity.MainActivity"
+    tools:showIn="@layout/item_main_app_bar">
+
+    <android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/viewPagerMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayoutButton"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButton"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="10"
+        >
+
+
+        <Button
+            android:text="DashBoard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="7dp"
+            android:id="@+id/btnDashBoard"
+            android:layout_weight="2" />
+
+        <Button
+            android:text="Calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCalendar"
+            android:textSize="7dp"
+            android:layout_weight="2"  />
+
+        <Button
+            android:text="Client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="7dp"
+
+            android:id="@+id/btnClient"
+            android:layout_weight="2" />
+
+        <Button
+            android:text="Service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="7dp"
+            android:id="@+id/btnService"
+            android:layout_weight="2"  />
+        <Button
+            android:text="more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="7dp"
+            android:id="@+id/btnMore"
+            android:layout_weight="2"  />
+    </LinearLayout>
+
+
+</RelativeLayout>

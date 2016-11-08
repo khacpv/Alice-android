@@ -11,7 +11,7 @@ public class Constants {
     /* LoginSignup Activity */
 
     //click only
-
+    public static final int NUM_PAGES = 5;
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
     public static final String LOGIN_SIGNUP_SCREEN = "screen.login.signup";
