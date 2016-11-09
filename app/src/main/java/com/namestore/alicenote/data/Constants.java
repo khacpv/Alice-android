@@ -8,9 +8,17 @@ public class Constants {
 
     public static final String TAG = "ALICE";
 
+     /*START API SERVER*/
+
+    public static final String URL_SERVER = "http://api.alicenote.com";
+    public static final String API_LOGIN = "/v1/users/login";
+    public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
+    public static final String API_SIGNUP = "/v1/users/register";
+
+    /*END API SERVER*/
+
     /* LoginSignup Activity */
 
-    //click only
     public static final int NUM_PAGES = 5;
     public static final int KEY_LOGIN = 0;
     public static final int KEY_SIGNUP = 1;
@@ -30,8 +38,6 @@ public class Constants {
 
     /* First Setup Activity */
 
-    //click only
-
     public static final String FIRST_SETUP_SCREEN = "screen.login.signup";
 
     public static final int KEY_SETUP_INFO_SALON = 0;
@@ -45,12 +51,11 @@ public class Constants {
 
     /* End of First Setup Activity */
 
-    /*START API SERVER*/
+       /* First Setup Activity */
 
-    public static final String URL_SERVER = "http://api.alicenote.com";
-    public static final String API_LOGIN = "/v1/users/login";
-    public static final String API_SOCIAL_LOGIN = "/v1/users/social-login";
-    public static final String API_SIGNUP = "/v1/users/register";
+    public static final String DASHBOARD_SCREEN = "screen.dashboard";
 
-    /*END API SERVER*/
+
+    /* End of First Setup Activity */
+
 }

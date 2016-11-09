@@ -12,14 +12,15 @@ import android.view.View;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.core.CoreActivity;
-import com.namestore.alicenote.fragment.ConfigSalonServicesFragment;
+import com.namestore.alicenote.fragment.ServicesDetailFragment;
 import com.namestore.alicenote.fragment.HairServicesFragment;
 import com.namestore.alicenote.fragment.NailServicesFragment;
-import com.namestore.alicenote.fragment.PickSalonServiceFragment;
-import com.namestore.alicenote.fragment.SetupInfoSalonFragment;
-import com.namestore.alicenote.fragment.TimeOpenDoorFragment;
+import com.namestore.alicenote.fragment.ShopServicesCategoryFragment;
+import com.namestore.alicenote.fragment.ShopRegisterFragment;
+import com.namestore.alicenote.fragment.ShopWorkingDayFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.models.FirstSetup;
 
 import java.util.ArrayList;
 
@@ -32,13 +33,13 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
         OnFragmentInteractionListener,
         OnFirstSetupActivityListener {
 
-
-    private SetupInfoSalonFragment mSetupInfoSalonFragment;
-    private TimeOpenDoorFragment mTimeOpenDoorFragment;
-    private PickSalonServiceFragment mPickSalonServiceFragment;
+    private ShopRegisterFragment mShopRegisterFragment;
+    private ShopWorkingDayFragment mShopWorkingDayFragment;
+    private ShopServicesCategoryFragment mShopServicesCategoryFragment;
     private HairServicesFragment mHairServicesFragment;
     private NailServicesFragment mNailServicesFragment;
-    private ConfigSalonServicesFragment mConfigSalonServicesFragment;
+    private ServicesDetailFragment mServicesDetailFragment;
+    FirstSetup firstSetup = new FirstSetup();
 
     ArrayList<CoreFragment> fragments = new ArrayList<>();
 
@@ -53,31 +54,31 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
             return;
         }
 
-        mSetupInfoSalonFragment = new SetupInfoSalonFragment();
-        mTimeOpenDoorFragment = new TimeOpenDoorFragment();
-        mPickSalonServiceFragment = new PickSalonServiceFragment();
+        mShopRegisterFragment = new ShopRegisterFragment();
+        mShopWorkingDayFragment = new ShopWorkingDayFragment();
+        mShopServicesCategoryFragment = new ShopServicesCategoryFragment();
         mHairServicesFragment = new HairServicesFragment();
         mNailServicesFragment = new NailServicesFragment();
-        mConfigSalonServicesFragment = new ConfigSalonServicesFragment();
+        mServicesDetailFragment = new ServicesDetailFragment();
 
-        fragments.add(mSetupInfoSalonFragment);
-        fragments.add(mTimeOpenDoorFragment);
-        fragments.add(mPickSalonServiceFragment);
+        fragments.add(mShopRegisterFragment);
+        fragments.add(mShopWorkingDayFragment);
+        fragments.add(mShopServicesCategoryFragment);
         fragments.add(mHairServicesFragment);
         fragments.add(mNailServicesFragment);
-        fragments.add(mConfigSalonServicesFragment);
+        fragments.add(mServicesDetailFragment);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, mSetupInfoSalonFragment)
-                .add(R.id.container, mTimeOpenDoorFragment)
-                .add(R.id.container, mPickSalonServiceFragment)
+                .add(R.id.container, mShopRegisterFragment)
+                .add(R.id.container, mShopWorkingDayFragment)
+                .add(R.id.container, mShopServicesCategoryFragment)
                 .add(R.id.container, mHairServicesFragment)
                 .add(R.id.container, mNailServicesFragment)
-                .add(R.id.container, mConfigSalonServicesFragment)
+                .add(R.id.container, mServicesDetailFragment)
                 .commit();
 
         if (getIntent().getExtras().getInt(Constants.FIRST_SETUP_SCREEN) == Constants.KEY_SETUP_INFO_SALON) {
-            showFragment(mSetupInfoSalonFragment);
+            showFragment(mShopRegisterFragment);
         }
     }
 
@@ -96,42 +97,41 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
 
     @Override
     public void showSetupInfoSalon() {
-        showFragment(mSetupInfoSalonFragment);
+        showFragment(mShopRegisterFragment);
 
 
     }
 
     @Override
     public void showTimeOpenDoorSalon() {
-        showFragment(mTimeOpenDoorFragment);
+        showFragment(mShopWorkingDayFragment);
     }
 
     @Override
     public void pickSalonService() {
-        showFragment(mPickSalonServiceFragment);
-
-
+        showFragment(mShopServicesCategoryFragment);
     }
 
     @Override
     public void nailService() {
         showFragment(mNailServicesFragment);
-
-
     }
 
     @Override
     public void hairService() {
         showFragment(mHairServicesFragment);
-
-
     }
 
     @Override
     public void configServices() {
-        showFragment(mConfigSalonServicesFragment);
+        showFragment(mServicesDetailFragment);
+    }
 
-
+    public FirstSetup getFirstSetup() {
+        if (firstSetup == null) {
+            firstSetup = new FirstSetup();
+        }
+        return firstSetup;
     }
 
     @Override
@@ -141,8 +141,8 @@ public class FirstSetupAcitivity extends CoreActivity implements View.OnClickLis
 
     @Override
     public void onViewClick(String tag) {
-        switch (tag){
-            case "DAS":
+        switch (tag) {
+            case Constants.DASHBOARD_SCREEN:
                 Intent intent = new Intent(FirstSetupAcitivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);

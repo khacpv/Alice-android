@@ -13,7 +13,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.adapter.DashboardCustomRecyclerViewAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.models.DashboardObject;
-import com.namestore.alicenote.models.RecyclerItemClickListener;
+import com.namestore.alicenote.interfaces.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

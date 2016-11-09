@@ -52,7 +52,7 @@ public class HairServicesFragment extends CoreFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_config_hair_service, container, false);
+        View view = inflater.inflate(R.layout.fm_hair_service, container, false);
         initViews(view);
         return view;
     }

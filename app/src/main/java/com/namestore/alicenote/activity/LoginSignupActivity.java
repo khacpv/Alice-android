@@ -29,6 +29,7 @@ import com.namestore.alicenote.connect.network.api.AliceApi;
 import com.namestore.alicenote.connect.reponse.RSPLoginSignup;
 import com.namestore.alicenote.core.CoreActivity;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.dialog.DialogNotice;
 import com.namestore.alicenote.fragment.FillFullInforUserFragment;
 import com.namestore.alicenote.fragment.LoginFragment;
 import com.namestore.alicenote.fragment.SignUpFragment;
@@ -49,10 +50,11 @@ import retrofit2.Response;
  * Created by kienht on 10/25/16.
  */
 
-public class LoginSignupActivity extends CoreActivity implements OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
+public class LoginSignupActivity extends CoreActivity
+        implements OnFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener {
 
-    public final static int LOGIN_ERROR = 0;
-    public final static int LOGIN_SUCCESS = 1;
+    public final static int ERROR = 0;
+    public final static int SUCCESS = 1;
     public final static int LOGED = 2;
     public final static int FIRST_LOGIN = 3;
     private static final int RC_SIGN_IN = 9001;
@@ -68,6 +70,7 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
     private ProgressDialog prgDialog;
     private GoogleApiClient mGoogleApiClient;
     AccessToken mAccessToken;
+    AppUtils appUtils = new AppUtils(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,13 +154,13 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
                             @Override
                             public void onCancel() {
-                                AppUtils.logE("FB CANCEL");
+                                appUtils.logE("FB CANCEL");
                                 mLoginButtonFb.setClickable(true);
                             }
 
                             @Override
                             public void onError(FacebookException exception) {
-                                AppUtils.logE("FB ERROR");
+                                appUtils.logE("FB ERROR");
                                 mLoginButtonFb.setClickable(true);
 
                             }
@@ -248,8 +251,8 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
 
     }
 
-    public void moveFirstSetupAct(int key) {
-        Intent mIntent = new Intent(LoginSignupActivity.this, FirstSetupAcitivity.class);
+    public void moveIntent(int key, Class<?> cls) {
+        Intent mIntent = new Intent(LoginSignupActivity.this, cls);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, key);
         startActivity(mIntent);
@@ -321,11 +324,11 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         aliceApi.login(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
+                appUtils.logE("OK LOGIN || STATUS: " + response.body().getStatus() + "|TOKEN|" + response.body().getToken());
                 if (response.isSuccessful()) {
-                    AppUtils.logE(response.body().getStatus() + "||" + response.body().getToken());
                     prgDialog.hide();
                     switch (response.body().getStatus()) {
-                        case LOGIN_ERROR:
+                        case ERROR:
                             if (response.body().getErrors().has("email")) {
                                 String emailBlank = response.body().getErrors().get("email").getAsString();
                                 String passwordBlank = response.body().getErrors().get("password_hash").getAsString();
@@ -339,14 +342,14 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
                                 }
                             }
                             break;
-                        case LOGIN_SUCCESS:
-                            moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                        case SUCCESS:
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
                             break;
                         case LOGED:
-                            AppUtils.showShortToast(LoginSignupActivity.this, "ban da dang nhap");
+                            appUtils.showShortToast("ban da dang nhap");
                             break;
                         case FIRST_LOGIN:
-                            moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
                             break;
                     }
                 }
@@ -355,9 +358,9 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
+                    appUtils.logE("request was cancelled");
                 } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                    appUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });
@@ -370,19 +373,32 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         aliceApi.signup(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                AppUtils.logE("OK || STATUS" + response.body().getStatus());
+                appUtils.logE("OK SIGNUP || STATUS: " + response.body().getStatus());
                 prgDialog.hide();
                 if (response.isSuccessful()) {
-                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                    switch (response.body().getStatus()) {
+                        case ERROR:
+
+                            break;
+
+                        case SUCCESS:
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                            break;
+
+                        case LOGED:
+                            moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                            break;
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
+                    appUtils.logE("request was cancelled");
                 } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                    appUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });
@@ -395,23 +411,43 @@ public class LoginSignupActivity extends CoreActivity implements OnFragmentInter
         aliceApi.socialLogin(user).enqueue(new Callback<RSPLoginSignup>() {
             @Override
             public void onResponse(Call<RSPLoginSignup> call, Response<RSPLoginSignup> response) {
-                if (response.isSuccessful()) {
-                    moveFirstSetupAct(Constants.KEY_SETUP_INFO_SALON);
+                appUtils.logE("OK LOGINSOCIAL || STATUS: " + response.body().getStatus());
+                switch (response.body().getStatus()) {
+                    case SUCCESS:
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                        break;
+
+                    case LOGED:
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, MainActivity.class);
+                        break;
+
+                    case FIRST_LOGIN:
+                        moveIntent(Constants.KEY_SETUP_INFO_SALON, FirstSetupAcitivity.class);
+                        break;
                 }
             }
 
             @Override
             public void onFailure(Call<RSPLoginSignup> call, Throwable t) {
                 if (call.isCanceled()) {
-                    AppUtils.logE("request was cancelled");
+                    appUtils.logE("request was cancelled");
                 } else {
-                    AppUtils.logE("FAILED " + t.getLocalizedMessage());
+                    appUtils.logE("FAILED " + t.getLocalizedMessage());
                 }
             }
         });
     }
 
+    public void showDialog(String string) {
+        DialogNotice dialogNotice = new DialogNotice();
+        dialogNotice.showDialog(this, string);
+
+    }
+
     public User getUser() {
+        if (mUser == null) {
+            mUser = new User();
+        }
         return mUser;
     }
 

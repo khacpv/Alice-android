@@ -19,13 +19,11 @@ import com.namestore.alicenote.activity.LoginSignupActivity;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.dialog.DialogNotice;
 import com.namestore.alicenote.models.User;
 import com.namestore.alicenote.utils.AppUtils;
 import com.namestore.alicenote.utils.ViewUtils;
 
-import java.util.regex.Pattern;
-
-import static com.namestore.alicenote.utils.AppUtils.checkEmail;
 
 /**
  * Created by kienht on 10/24/16.
@@ -47,6 +45,7 @@ public class LoginFragment extends CoreFragment {
     private LoginSignupActivity loginSignupActivity;
     LinearLayout linearLayout;
     User mUser = new User();
+    AppUtils appUtils;
 
     @Nullable
     @Override
@@ -61,6 +60,7 @@ public class LoginFragment extends CoreFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
+        appUtils = new AppUtils(loginSignupActivity);
     }
 
     @Override
@@ -122,6 +122,12 @@ public class LoginFragment extends CoreFragment {
         }
     }
 
+    private void showDialog(String string) {
+        DialogNotice dialogNotice = new DialogNotice();
+        dialogNotice.showDialog(getActivity(), string);
+
+    }
+
     @Override
     public void onClick(View view) {
 
@@ -131,25 +137,25 @@ public class LoginFragment extends CoreFragment {
                 mUser.passwordHash = mEditTexPassword.getText().toString();
 
                 if (TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.passwordHash)) {
-                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
-                } else if (AppUtils.checkEmail(mUser.email)) {
+                    showDialog("Please filling in the blanks");
+                } else if (appUtils.checkEmail(mUser.email)) {
                     if (mUser.passwordHash.length() < 8) {
-                        AppUtils.showShortToast(getActivity(), "Password phai lon hon 8 ky tu");
+                        showDialog("Password phai lon hon 8 ky tu");
                     } else {
                         onFragmentInteractionListener.onViewClick(Constants.LOGIN_BUTTON, mUser);
                     }
 
                 } else {
-                    AppUtils.showShortToast(getActivity(), "Email ko dung dinh dang");
+                    showDialog("Email ko dung dinh dang");
                 }
                 break;
 
             case R.id.textview_forgot_pass:
-                AppUtils.showShortToast(getActivity(), Constants.FORGOT_PASS);
+                appUtils.showShortToast(Constants.FORGOT_PASS);
                 break;
 
             case R.id.textview_report_error_login:
-                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
+                appUtils.showShortToast(Constants.REPORT_ERROR);
                 break;
 
             case R.id.button_facebook_login:
@@ -161,7 +167,7 @@ public class LoginFragment extends CoreFragment {
                 break;
 
             case R.id.textview_contact:
-                AppUtils.showShortToast(getActivity(), Constants.CONTACT_ALICE);
+                appUtils.showShortToast(Constants.CONTACT_ALICE);
                 break;
 
             case R.id.textview_signup:

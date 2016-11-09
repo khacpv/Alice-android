@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * Created by kienht on 10/26/16.
  */
 
-public class ConfigSalonServicesFragment extends CoreFragment {
+public class ServicesDetailFragment extends CoreFragment {
 
     ArrayList<SubServices> servicesArrayList;
     private RecyclerView listNameServices;
@@ -45,14 +45,14 @@ public class ConfigSalonServicesFragment extends CoreFragment {
     private FirstSetupAcitivity firstSetupAcitivity;
     OnFragmentInteractionListener listener;
 
-    public ConfigSalonServicesFragment() {
+    public ServicesDetailFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fm_config_salon_services, container, false);
+        View view = inflater.inflate(R.layout.fm_services_detail, container, false);
         initViews(view);
         initModels();
         return view;
@@ -72,7 +72,7 @@ public class ConfigSalonServicesFragment extends CoreFragment {
 
     public void dialogConfigService() {
         configDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        configDialog.setContentView(R.layout.layout_dialog_config_service);
+        configDialog.setContentView(R.layout.dialog_config_service);
         configDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         configDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         configDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -185,7 +185,7 @@ public class ConfigSalonServicesFragment extends CoreFragment {
                 }
                 break;
             case R.id.button_next:
-                listener.onViewClick("DAS");
+                listener.onViewClick(Constants.DASHBOARD_SCREEN);
                 break;
 
             default:

@@ -9,6 +9,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.adapter.ViewPagerAdapter;
 import com.namestore.alicenote.core.CoreActivity;
 import com.namestore.alicenote.data.Constants;
+
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
@@ -21,6 +22,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class StartActivity extends CoreActivity implements OnFragmentInteractionListener {
 
     Button mButtonLogin;
+
     Button mButtonSignup;
 
     @Override
@@ -42,12 +44,19 @@ public class StartActivity extends CoreActivity implements OnFragmentInteraction
 
         mButtonLogin.setOnClickListener(this);
         mButtonSignup.setOnClickListener(this);
+
+//        Intent mIntent = new Intent(StartActivity.this, FirstSetupAcitivity.class);
+//        mIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        mIntent.putExtra(Constants.FIRST_SETUP_SCREEN, Constants.SETUP_INFO_SALON);
+//        startActivity(mIntent);
+//        finish();
     }
 
     @Override
     public void onBackPressed() {
 
     }
+
 
     @Override
     public void onClick(View view) {

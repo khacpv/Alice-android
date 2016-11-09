@@ -18,6 +18,7 @@ import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.StartActivity;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
+import com.namestore.alicenote.dialog.DialogNotice;
 import com.namestore.alicenote.models.User;
 import com.namestore.alicenote.utils.AppUtils;
 import com.namestore.alicenote.utils.ViewUtils;
@@ -48,6 +49,7 @@ public class SignUpFragment extends CoreFragment {
     LinearLayout linearLayout;
     private StartActivity loginActivity;
     User mUser = new User();
+    AppUtils appUtils ;
 
     @Nullable
     @Override
@@ -61,6 +63,7 @@ public class SignUpFragment extends CoreFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
+        appUtils = new AppUtils(loginActivity);
     }
 
     @Override
@@ -117,6 +120,11 @@ public class SignUpFragment extends CoreFragment {
         }
     }
 
+    private void showDialog(String string) {
+        DialogNotice dialogNotice = new DialogNotice();
+        dialogNotice.showDialog(getActivity(), string);
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -142,34 +150,33 @@ public class SignUpFragment extends CoreFragment {
                     mUser.gender = 0;
                 }
 
-
                 if (TextUtils.isEmpty(mUser.firstName) || TextUtils.isEmpty(mUser.lastName)
                         || TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.passwordHash)
                         || TextUtils.isEmpty(mUser.telephone) || mUser.gender == 0) {
-                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
+                    showDialog("Please filling in the blanks");
                 } else {
-                    if (AppUtils.checkFirstLastName(mUser.firstName) || AppUtils.checkFirstLastName(mUser.lastName)) {
-                        if (AppUtils.checkEmail(mUser.email)) {
+                    if (appUtils.checkFirstLastName(mUser.firstName) || appUtils.checkFirstLastName(mUser.lastName)) {
+                        if (appUtils.checkEmail(mUser.email)) {
                             if (mUser.passwordHash.length() < 8) {
-                                AppUtils.showShortToast(getActivity(), "Pass phai lon hon 8 ky tu");
+                                showDialog("Pass phai lon hon 8 ky tu");
                             } else {
                                 if (mUser.telephone.length() < 10) {
-                                    AppUtils.showShortToast(getActivity(), "Phone phai lon hon 10 ky tu");
+                                    showDialog("Phone phai lon hon 10 ky tu");
                                 } else {
                                     onFragmentInteractionListener.onViewClick(Constants.SIGNUP_BUTTON, mUser);
                                 }
                             }
                         } else {
-                            AppUtils.showShortToast(getActivity(), "Email sai dinh dang");
+                            showDialog("Email sai dinh dang");
                         }
                     } else {
-                        AppUtils.showShortToast(getActivity(), "Name sai dinh dang");
+                        showDialog("Name sai dinh dang");
                     }
                 }
 
                 break;
             case R.id.textview_report_error_signup:
-                AppUtils.showShortToast(getActivity(), Constants.REPORT_ERROR);
+                appUtils.showShortToast( Constants.REPORT_ERROR);
                 break;
             case R.id.button_facebook_signup:
                 onFragmentInteractionListener.onViewClick(Constants.LOGIN_FACEBOOK);

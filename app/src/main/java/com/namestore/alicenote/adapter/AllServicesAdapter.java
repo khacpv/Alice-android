@@ -1,6 +1,7 @@
 package com.namestore.alicenote.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,12 @@ public class AllServicesAdapter extends RecyclerView.Adapter<AllServicesAdapter.
 
     private ArrayList<SubServices> servicesArrayList;
     private OnItemClickListener listener;
-    private static String[] durationTimeService;
-    private static Activity activity;
+    public String[] durationTimeService;
+    public Activity activity;
 
 
-    public AllServicesAdapter(List<SubServices> services, OnItemClickListener listener, String durationTimeService[], Activity activity) {
+    public AllServicesAdapter(List<SubServices> services, OnItemClickListener listener,
+                              String durationTimeService[], Activity activity) {
         this.servicesArrayList = new ArrayList<>(services);
         this.listener = listener;
         this.durationTimeService = durationTimeService;
@@ -42,7 +44,7 @@ public class AllServicesAdapter extends RecyclerView.Adapter<AllServicesAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_salon_service_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_salon_service, parent, false);
         return new ViewHolder(v);
     }
 
@@ -57,7 +59,7 @@ public class AllServicesAdapter extends RecyclerView.Adapter<AllServicesAdapter.
         return servicesArrayList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView mTextView;
         private LinearLayout linearLayout;
         private Button mButtonDown;
@@ -101,7 +103,7 @@ public class AllServicesAdapter extends RecyclerView.Adapter<AllServicesAdapter.
 
         public void settingSpinner() {
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, durationTimeService);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, android.R.layout.simple_spinner_item, durationTimeService);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             mSpinner.setAdapter(adapter);

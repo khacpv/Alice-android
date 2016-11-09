@@ -11,7 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,10 +19,11 @@ import android.widget.Spinner;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.activity.LoginSignupActivity;
-import com.namestore.alicenote.activity.StartActivity;
+
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.data.Constants;
-import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
+import com.namestore.alicenote.dialog.DialogNotice;
+
 import com.namestore.alicenote.models.User;
 import com.namestore.alicenote.utils.AppUtils;
 import com.namestore.alicenote.utils.ViewUtils;
@@ -47,6 +48,7 @@ public class FillFullInforUserFragment extends CoreFragment {
     Button mButtonOk;
     LinearLayout linearLayout;
     User mUser = new User();
+    AppUtils appUtils;
     private LoginSignupActivity loginSignupActivity;
 
     @Nullable
@@ -61,6 +63,7 @@ public class FillFullInforUserFragment extends CoreFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initModels();
+        appUtils = new AppUtils(loginSignupActivity);
     }
 
     @Override
@@ -114,7 +117,7 @@ public class FillFullInforUserFragment extends CoreFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if (activity instanceof StartActivity) {
+        if (activity instanceof LoginSignupActivity) {
             this.loginSignupActivity = (LoginSignupActivity) activity;
         }
     }
@@ -162,6 +165,11 @@ public class FillFullInforUserFragment extends CoreFragment {
         editText.setKeyListener(null);
     }
 
+    private void showDialog(String string) {
+        DialogNotice dialogNotice = new DialogNotice();
+        dialogNotice.showDialog(getActivity(), string);
+    }
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -171,7 +179,7 @@ public class FillFullInforUserFragment extends CoreFragment {
                 mUser.firstName = mEditTextFirstName.getText().toString();
                 mUser.lastName = mEditTextLastName.getText().toString();
                 mUser.email = mEditTextEmail.getText().toString();
-                mUser.telephone = mEditTextEmail.getText().toString();
+                mUser.telephone = mEditTextPhone.getText().toString();
 
 
                 if (mSpinnerGender.getSelectedItem().toString().equals("Male")) {
@@ -186,20 +194,20 @@ public class FillFullInforUserFragment extends CoreFragment {
 
                 if (TextUtils.isEmpty(mUser.firstName) || TextUtils.isEmpty(mUser.lastName)
                         || TextUtils.isEmpty(mUser.email) || TextUtils.isEmpty(mUser.telephone) || mUser.gender == 0) {
-                    AppUtils.showShortToast(getActivity(), "Please filling in the blanks");
+                    showDialog("Please filling in the blanks");
                 } else {
-                    if (AppUtils.checkFirstLastName(mUser.firstName) || AppUtils.checkFirstLastName(mUser.lastName)) {
-                        if (AppUtils.checkEmail(mUser.email)) {
+                    if (appUtils.checkFirstLastName(mUser.firstName) || appUtils.checkFirstLastName(mUser.lastName)) {
+                        if (appUtils.checkEmail(mUser.email)) {
                             if (mUser.telephone.length() < 10) {
-                                AppUtils.showShortToast(getActivity(), "Phone phai lon hon 10 ky tu");
+                                showDialog("Phone phai lon hon 10 ky tu");
                             } else {
                                 onFragmentInteractionListener.onViewClick(Constants.LOGIN_SOCIAL, mUser);
                             }
                         } else {
-                            AppUtils.showShortToast(getActivity(), "Email sai dinh dang");
+                            showDialog("Email sai dinh dang");
                         }
                     } else {
-                        AppUtils.showShortToast(getActivity(), "Name sai dinh dang");
+                        showDialog("Name sai dinh dang");
                     }
                 }
                 break;

@@ -29,7 +29,7 @@ public class SubServicesAdapter extends RecyclerView.Adapter<SubServicesAdapter.
 
     @Override
     public SubServicesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_subservices_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subservices, parent, false);
         return new ViewHolder(v);
     }
 

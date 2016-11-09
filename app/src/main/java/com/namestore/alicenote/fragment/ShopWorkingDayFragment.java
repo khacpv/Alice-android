@@ -17,14 +17,11 @@ import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.utils.ViewUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by kienht on 10/25/16.
  */
 
-public class TimeOpenDoorFragment extends CoreFragment {
+public class ShopWorkingDayFragment extends CoreFragment {
     Button mButtonBack;
     Button mButtonNext;
     TextView mTextViewTitle;
@@ -43,19 +40,19 @@ public class TimeOpenDoorFragment extends CoreFragment {
     Spinner mSpinnerTimeStartSaturday, mSpinnerTimeEndSaturday;
     Spinner mSpinnerTimeStartSunday, mSpinnerTimeEndSunday;
 
-    class WorkingDay {
-        String day;
-        int startTime;
-        int endTime;
-        boolean checked = false;
-    }
-
-    List<WorkingDay> workingDays = new ArrayList<>();
+//    class WorkingDay {
+//        String day;
+//        int startTime;
+//        int endTime;
+//        boolean checked = false;
+//    }
+//
+//    List<WorkingDay> workingDays = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_timeopendoor, container, false);
+        View view = inflater.inflate(R.layout.fm_shop_working_days, container, false);
         initViews(view);
         return view;
 
@@ -64,14 +61,14 @@ public class TimeOpenDoorFragment extends CoreFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        for (int i = 2; i <= 8; i++) {
-            WorkingDay item = new WorkingDay();
-            item.day = "Thu " + i;
-            item.startTime = 0;
-            item.endTime = 0;
-            workingDays.add(item);
-        }
+//
+//        for (int i = 2; i <= 8; i++) {
+//            WorkingDay item = new WorkingDay();
+//            item.day = "Thu " + i;
+//            item.startTime = 0;
+//            item.endTime = 0;
+//            workingDays.add(item);
+//        }
 
         initModels();
     }
@@ -87,9 +84,9 @@ public class TimeOpenDoorFragment extends CoreFragment {
 
     public void setupSpinner() {
         // thu 2
-        mCheckBoxMonday.setChecked(workingDays.get(0).checked);
-        mSpinnerTimeStartMonday.setSelection(workingDays.get(0).startTime);
-        mSpinnerTimeEndMonday.setSelection(workingDays.get(0).endTime);
+//        mCheckBoxMonday.setChecked(workingDays.get(0).checked);
+//        mSpinnerTimeStartMonday.setSelection(workingDays.get(0).startTime);
+//        mSpinnerTimeEndMonday.setSelection(workingDays.get(0).endTime);
         mCheckBoxMonday.setText("Monday");
 
         mCheckBoxTuesday.setText("Tuesday");
@@ -103,8 +100,11 @@ public class TimeOpenDoorFragment extends CoreFragment {
     public void configSpinner() {
         String[] hour_open = getResources().getStringArray(R.array.hour_open);
 
-        ViewUtils.configSpinner(getActivity(), hour_open, mSpinnerTimeEndMonday, mSpinnerTimeEndTuesday, mSpinnerTimeEndWednesday, mSpinnerTimeEndThursday, mSpinnerTimeEndFriday,
-                mSpinnerTimeEndSaturday, mSpinnerTimeEndSunday, mSpinnerTimeStartMonday, mSpinnerTimeStartTuesday, mSpinnerTimeStartWednesday, mSpinnerTimeStartThursday,
+        ViewUtils.configSpinner(getActivity(), hour_open, mSpinnerTimeEndMonday, mSpinnerTimeEndTuesday,
+                mSpinnerTimeEndWednesday, mSpinnerTimeEndThursday, mSpinnerTimeEndFriday,
+                mSpinnerTimeEndSaturday, mSpinnerTimeEndSunday,
+                mSpinnerTimeStartMonday, mSpinnerTimeStartTuesday,
+                mSpinnerTimeStartWednesday, mSpinnerTimeStartThursday,
                 mSpinnerTimeStartFriday, mSpinnerTimeStartSaturday, mSpinnerTimeStartSunday);
     }
 
@@ -151,14 +151,14 @@ public class TimeOpenDoorFragment extends CoreFragment {
         mCheckBoxMonday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                workingDays.get(0).checked = b;
+                //  workingDays.get(0).checked = b;
             }
         });
 
         mSpinnerTimeStartMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                workingDays.get(0).startTime = position;
+                // workingDays.get(0).startTime = position;
             }
 
             @Override
@@ -170,7 +170,7 @@ public class TimeOpenDoorFragment extends CoreFragment {
         mSpinnerTimeEndMonday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                workingDays.get(0).endTime = position;
+                // workingDays.get(0).endTime = position;
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.namestore.alicenote.models;
+package com.namestore.alicenote.interfaces;
 
 /**
  * Created by Nhocnhinho on 1/13/2016.
