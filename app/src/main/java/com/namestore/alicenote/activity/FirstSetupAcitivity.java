@@ -12,12 +12,12 @@ import android.view.View;
 
 import com.namestore.alicenote.R;
 import com.namestore.alicenote.core.CoreActivity;
-import com.namestore.alicenote.fragment.ServicesDetailFragment;
-import com.namestore.alicenote.fragment.HairServicesFragment;
-import com.namestore.alicenote.fragment.NailServicesFragment;
-import com.namestore.alicenote.fragment.ShopServicesCategoryFragment;
-import com.namestore.alicenote.fragment.ShopRegisterFragment;
-import com.namestore.alicenote.fragment.ShopWorkingDayFragment;
+import com.namestore.alicenote.fragment.firstsetup.ServicesDetailFragment;
+import com.namestore.alicenote.fragment.firstsetup.HairServicesFragment;
+import com.namestore.alicenote.fragment.firstsetup.NailServicesFragment;
+import com.namestore.alicenote.fragment.firstsetup.ShopServicesCategoryFragment;
+import com.namestore.alicenote.fragment.firstsetup.ShopRegisterFragment;
+import com.namestore.alicenote.fragment.firstsetup.ShopWorkingDayFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.interfaces.OnFragmentInteractionListener;
 import com.namestore.alicenote.models.FirstSetup;

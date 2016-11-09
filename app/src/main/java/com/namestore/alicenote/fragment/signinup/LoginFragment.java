@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.signinup;
 
 import android.app.Activity;
 import android.content.Context;

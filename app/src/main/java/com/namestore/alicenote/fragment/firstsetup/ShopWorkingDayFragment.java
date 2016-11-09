@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.firstsetup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

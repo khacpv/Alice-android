@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.firstsetup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.namestore.alicenote.utils.ViewUtils;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +25,6 @@ import com.namestore.alicenote.adapter.SubServicesAdapter;
 import com.namestore.alicenote.core.CoreFragment;
 import com.namestore.alicenote.interfaces.OnFirstSetupActivityListener;
 import com.namestore.alicenote.models.SubServices;
-import com.namestore.alicenote.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,28 +32,27 @@ import java.util.Arrays;
 /**
  * Created by kienht on 10/26/16.
  */
-public class NailServicesFragment extends CoreFragment {
 
-    ArrayList<SubServices> nailServicesArrayList;
+public class HairServicesFragment extends CoreFragment {
+
+    ArrayList<SubServices> hairServicesArrayList;
     private RecyclerView recyclerViewNailService;
     TextView mTextViewTitle;
-    EditText mEditTexAddNailService;
+    EditText mEditTexAddHairService;
     Button mButtonBack;
     Button mButtonNext;
     Button mButtonAddService;
     LinearLayout linearLayout;
-    private FirstSetupAcitivity firstSetupAcitivity;
     private String newService;
-    private ArrayList<String> arrayListNailService;
+    private ArrayList<String> arrayListHairService;
     SubServicesAdapter subServicesAdapter;
 
-    public NailServicesFragment() {
-    }
+    private FirstSetupAcitivity firstSetupAcitivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fm_nail_service, container, false);
+        View view = inflater.inflate(R.layout.fm_hair_service, container, false);
         initViews(view);
         return view;
     }
@@ -62,21 +63,19 @@ public class NailServicesFragment extends CoreFragment {
         initModels();
     }
 
-
     @Override
     protected void initViews(View view) {
-
-        recyclerViewNailService = (RecyclerView) view.findViewById(R.id.list_nail_services);
+        recyclerViewNailService = (RecyclerView) view.findViewById(R.id.list_hair_services);
         recyclerViewNailService.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewNailService.setHasFixedSize(true);
 
-        mTextViewTitle = (TextView) view.findViewById(R.id.title_pick_nail_service).findViewById(R.id.title_first_setup);
-        mTextViewTitle.setText("Nail Services");
+        mTextViewTitle = (TextView) view.findViewById(R.id.title_pick_hair_service).findViewById(R.id.title_first_setup);
+        mTextViewTitle.setText("Hair Services");
         mButtonBack = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_back);
         mButtonNext = (Button) view.findViewById(R.id.button_next_back).findViewById(R.id.button_next);
-        mButtonAddService = (Button) view.findViewById(R.id.button_add_nail_service);
-        mEditTexAddNailService = (EditText) view.findViewById(R.id.editTex_add_nail_service);
-        linearLayout = (LinearLayout) view.findViewById(R.id.layout_frgment_nail_service);
+        mButtonAddService = (Button) view.findViewById(R.id.button_add_hair_service);
+        mEditTexAddHairService = (EditText) view.findViewById(R.id.editTex_add_hair_service);
+        linearLayout = (LinearLayout) view.findViewById(R.id.layout_frgment_hair_service);
     }
 
     @Override
@@ -85,18 +84,19 @@ public class NailServicesFragment extends CoreFragment {
         mButtonBack.setOnClickListener(this);
         mButtonNext.setVisibility(View.INVISIBLE);
         mButtonAddService.setOnClickListener(this);
-        ViewUtils.configEditText(getActivity(),mEditTexAddNailService, linearLayout, "Add nail service", 0, null);
 
-        nailServicesArrayList = new ArrayList<>();
+        ViewUtils.configEditText(getActivity(), mEditTexAddHairService, linearLayout, "Add hair service", 0, null);
 
-        arrayListNailService = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.nail_list_services)));
-        for (int i = 0; i < arrayListNailService.size(); i++) {
+        hairServicesArrayList = new ArrayList<>();
+
+        arrayListHairService = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.hair_list_services)));
+        for (int i = 0; i < arrayListHairService.size(); i++) {
             SubServices subServices = new SubServices();
-            subServices.setNameSubServices(arrayListNailService.get(i));
-            this.nailServicesArrayList.add(subServices);
+            subServices.setNameSubServices(arrayListHairService.get(i));
+            this.hairServicesArrayList.add(subServices);
         }
 
-        subServicesAdapter = new SubServicesAdapter(this.nailServicesArrayList);
+        subServicesAdapter = new SubServicesAdapter(this.hairServicesArrayList);
 
         recyclerViewNailService.setAdapter(subServicesAdapter);
         recyclerViewNailService.setItemAnimator(new DefaultItemAnimator());
@@ -110,6 +110,7 @@ public class NailServicesFragment extends CoreFragment {
         if (context instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) context;
         }
+
     }
 
     @Override
@@ -119,26 +120,28 @@ public class NailServicesFragment extends CoreFragment {
         if (activity instanceof FirstSetupAcitivity) {
             this.firstSetupAcitivity = (FirstSetupAcitivity) activity;
         }
+
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_back:
-                if(mActivity instanceof OnFirstSetupActivityListener){
-                    ((OnFirstSetupActivityListener)mActivity).pickSalonService();
+                if (mActivity instanceof OnFirstSetupActivityListener) {
+                    ((OnFirstSetupActivityListener) mActivity).pickSalonService();
                 }
                 break;
 
             /**
-             * Add nail Service
+             * Add hair Service
              * */
-            case R.id.button_add_nail_service:
-                newService = mEditTexAddNailService.getText().toString();
+            case R.id.button_add_hair_service:
+                newService = mEditTexAddHairService.getText().toString();
                 SubServices temp = new SubServices();
                 temp.setNameSubServices(newService);
                 if (!TextUtils.isEmpty(newService)) {
-                    mEditTexAddNailService.getText().clear();
+                    mEditTexAddHairService.getText().clear();
                     subServicesAdapter.addItem(temp);
                     recyclerViewNailService.scrollToPosition(subServicesAdapter.getItemCount() - 1);
                 }

@@ -1,4 +1,4 @@
-package com.namestore.alicenote.fragment;
+package com.namestore.alicenote.fragment.signinup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -28,9 +28,9 @@ import com.namestore.alicenote.models.User;
 import com.namestore.alicenote.utils.AppUtils;
 import com.namestore.alicenote.utils.ViewUtils;
 
-import static com.namestore.alicenote.fragment.SignUpFragment.GENDER_FEMALE;
-import static com.namestore.alicenote.fragment.SignUpFragment.GENDER_MALE;
-import static com.namestore.alicenote.fragment.SignUpFragment.GENDER_OTHER;
+import static com.namestore.alicenote.fragment.signinup.SignUpFragment.GENDER_FEMALE;
+import static com.namestore.alicenote.fragment.signinup.SignUpFragment.GENDER_MALE;
+import static com.namestore.alicenote.fragment.signinup.SignUpFragment.GENDER_OTHER;
 
 /**
  * Created by kienht on 11/8/16.
